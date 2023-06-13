@@ -13,6 +13,7 @@ class Solution {
 		}
 
 		while (st.size() > 0) {
+            // suppose we stand at zero position then smaller element indexwise is -1
 			nseli[st.pop()] = -1;
 		}
 
@@ -33,6 +34,7 @@ class Solution {
 		}
 
 		while (st.size() > 0) {
+            // suppose we stand at last position then smaller element indexwise is n ( that means out of range)
 			nseri[st.pop()] = n;
 		}
 
