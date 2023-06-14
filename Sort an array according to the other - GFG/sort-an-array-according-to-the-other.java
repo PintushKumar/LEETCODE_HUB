@@ -39,21 +39,18 @@ class Solution{
             if(hmp.containsKey(ele)){
                 while(hmp.get(ele)!=0){
                     res[indx++]=ele;
-                  // hmp.remove(ele);
                     hmp.put(ele , hmp.getOrDefault(ele,0)-1);
                 }
             }
         }
-        if(res.length==0){
-            return A1;
-        }
+       
         for (Map.Entry<Integer, Integer> entry : hmp.entrySet()) {
             int key = entry.getKey();
-            int value = entry.getValue();
-            if (value <= 0) continue;
-            while (value != 0) {
+            int len = entry.getValue();
+            if (len <= 0) continue;
+            while (len != 0) {
                 res[indx++]=key;
-                value--;
+                len--;
             }
         }
 
