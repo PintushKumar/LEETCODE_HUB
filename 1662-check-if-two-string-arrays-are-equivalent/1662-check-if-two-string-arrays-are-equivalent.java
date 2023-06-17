@@ -1,35 +1,26 @@
 class Solution {
     public boolean arrayStringsAreEqual(String[] word1, String[] word2) {
+        
 //         String s1 = "";
 //         String s2 = "";
-//         for(int i=0;i<word1.length;i++){
-//             s1+=word1[i];
-//         }
-//         for(int i=0;i<word1.length;i++){
-//             s1+=word1[i];
+        
+//         for (int i = 0; i < word1.length; i++) {
+//             s1 += word1[i];
 //         }
         
-//         char st1[]=s1.toCharArray();
-//         char st2 []=s2.toCharArray();
-//         if(st1.length != st2.length){
-//             return false;
+//         for (int i = 0; i < word2.length; i++) {
+//             s2 += word2[i];
 //         }
-//         Arrays.sort(st1);
-//         Arrays.sort(st2);
-//         String finalstr = new String(st1);
-//         String finalstr2 = new String(st2);
-//         return finalstr.equals(finalstr2);
-        String s1 = "";
-        String s2 = "";
         
-        for (int i = 0; i < word1.length; i++) {
-            s1 += word1[i];
+//         return s1.equals(s2);
+        StringBuilder s1 = new StringBuilder();
+        StringBuilder s2 = new StringBuilder();
+        for (String word : word1) {
+            s1.append(word);
         }
-        
-        for (int i = 0; i < word2.length; i++) {
-            s2 += word2[i];
+        for (String word : word2) {
+            s2.append(word);
         }
-        
-        return s1.equals(s2);
+        return Objects.equals(s1.toString(), s2.toString());
     }
 }
