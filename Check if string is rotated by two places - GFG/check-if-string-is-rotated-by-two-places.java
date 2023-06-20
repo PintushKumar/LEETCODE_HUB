@@ -37,9 +37,9 @@ class Solution
         if(str1.length()<2 || str2.length()<2){
             return false;
         }
-        String leftrotated = str1.substring(2)+str1.substring(0,2);
-        String rightrotated = str1.substring(str1.length()-2)+str1.substring(0,str1.length()-2);
-        if(leftrotated.equals(str2) ||rightrotated.equals(str2) ){
+        String clockWise = str1.substring(2)+str1.substring(0,2);
+        String antiClockWise = str1.substring(str1.length()-2)+str1.substring(0,str1.length()-2);
+        if(clockWise.equals(str2) ||antiClockWise.equals(str2) ){
             return true;
         }
         return false;
