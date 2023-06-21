@@ -35,13 +35,13 @@ class Solution
 {
     public static boolean isPossible(int[] books, int maxStudent, int limitedPages) {
         int numOfStudent = 1; // Initialize the number of students as 1
-        int numOfPages = 0; // Initialize the total number of pages allocated as 0
+        int numOfPagesRead = 0; // Initialize the total number of pages allocated as 0
         for (int pages : books) {
-            if (pages + numOfPages <= limitedPages) {
-                numOfPages += pages; // Add the pages of the current book to the total
+            if (pages + numOfPagesRead <= limitedPages) {
+                numOfPagesRead += pages; // Add the pages of the current book to the total
             } else {
                 numOfStudent++; // Increment the number of students
-                numOfPages = pages; // Reset the total number of pages to the pages of the current book
+                numOfPagesRead = pages; // Reset the total number of pages to the pages of the current book
             }
         }
         return numOfStudent <= maxStudent; // Check if the number of students is less than or equal to the maximum allowed
