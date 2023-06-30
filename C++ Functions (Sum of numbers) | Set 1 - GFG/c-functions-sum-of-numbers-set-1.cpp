@@ -29,6 +29,7 @@ int main() {
 int calcSum(int a, int b, int c)    
 {
     // Your code here
-    int sum = a+b+c;
-    return sum;
+    // int sum = a+b+c;
+    // return sum;
+    return a+b+c;
 }
