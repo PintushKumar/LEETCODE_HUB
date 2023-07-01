@@ -31,32 +31,34 @@ class GFG {
 
 class Solution {
     int findKRotation(int arr[], int n) {
-        // code here
-        int low = 0 , high = n-1;
-        int ind =-1 , ans = Integer.MAX_VALUE;
-        while(low<=high){
-            int mid =(low+high)/2;
-            if(arr[low]<arr[high]){
-                if(arr[low]<ans){
-                    ans =arr[low];
-                    ind =low;
+        int low = 0, high = n - 1; // Initialize the low and high indices
+        int ind = -1, ans = Integer.MAX_VALUE; // Initialize variables to track the index and minimum value
+
+        while (low <= high) {
+            int mid = (low + high) / 2; // Calculate the middle index
+
+            // if (arr[low] < arr[high]) { // If the subarray is already sorted, it means there are 0 rotations
+            //     if (arr[low] < ans) {
+            //         ans = arr[low];
+            //         ind = low;
+            //     }
+            //     break;
+            // }
+
+            if (arr[low] <= arr[mid]) { // If the left subarray is sorted, update the minimum value and move to the right subarray
+                if (arr[low] < ans) {
+                    ans = arr[low];
+                    ind = low;
                 }
-                break;
-            }
-            if(arr[low]<=arr[mid]){
-                if(arr[low]<ans){
-                    ans =arr[low];
-                    ind =low;
+                low = mid + 1;
+            } else { // If the right subarray is sorted, update the minimum value and move to the left subarray
+                if (arr[mid] < ans) {
+                    ans = arr[mid];
+                    ind = mid;
                 }
-                low=mid+1;
-            }else{
-                if(arr[mid]<ans){
-                    ans =arr[mid];
-                    ind =mid;
-                }
-                high = mid-1;
+                high = mid - 1;
             }
         }
-        return ind;
+        return ind; // Return the index of the minimum value
     }
 }
