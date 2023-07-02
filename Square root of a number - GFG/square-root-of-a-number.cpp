@@ -15,7 +15,18 @@ class Solution{
         // for(int i=0;i<sqrt(x);i++){
         //     return sqrt(x);
         // }
-        return sqrt(x);
+        // return sqrt(x);
+        
+        long long int ans = 0; 
+        for(int i=1;i<=x;i++){
+            long long int sqrts = i*i;
+            if(sqrts<=x){
+                ans = i;
+            }else{
+                break;
+            }
+        }
+        return ans;
     }
 };
 
