@@ -111,45 +111,66 @@ class Node {
         left = right = null;
     }
 } */
-class Solution
-{
+class Solution {
     // Return a list containing the inorder traversal of the given tree
-    class Pair{
-        Node node ;
+    
+    
+// ****************** this class created by me *****************************************
+
+
+// ***************** if callNUm ==0 call left Side of Node **********************
+// ***************** if callNUm ==1 call right Side of Node **********************
+// ***************** if callNUm ==2 remove Yourself means node  **********************
+    class Pair {
+        Node node;
         int callNum;
-        Pair(Node node , int callNum ){
+
+        Pair(Node node, int callNum) {
             this.node = node;
             this.callNum = callNum;
         }
     }
-    ArrayList<Integer> inOrder(Node root)
-    {
-        // Code
+//*******************************************************************************
+    ArrayList<Integer> inOrder(Node root) {
+        // Create an ArrayList to store the inorder traversal
         ArrayList<Integer> list = new ArrayList<>();
-        if(root == null){
+
+        // If the root is null, return the empty list
+        if (root == null) {
             return list;
         }
+
+        // Create a stack to simulate the function call stack
         Stack<Pair> callStack = new Stack<>();
-        callStack.push(new Pair(root , 0));
-        while(callStack.size()>0){
+
+        // Push the root node onto the stack with callNum 0
+        callStack.push(new Pair(root, 0));
+
+        // Perform iterative inorder traversal
+        while (callStack.size() > 0) {
             Pair rpair = callStack.peek();
-            if(rpair.callNum ==0){
+            if (rpair.callNum == 0) {
+                // If callNum is 0, it means the left subtree of the node is not yet visited
                 rpair.callNum = 1;
-                if(rpair.node.left != null){
-                    callStack.push(new Pair (rpair.node.left ,0));
+                if (rpair.node.left != null) {
+                    // Push the left child onto the stack with callNum 0
+                    callStack.push(new Pair(rpair.node.left, 0));
                 }
-            }else if(rpair.callNum ==1){
+            } else if (rpair.callNum == 1) {
+                // If callNum is 1, it means the left subtree is visited, so add the node to the list
                 list.add(rpair.node.data);
                 rpair.callNum = 2;
-                if(rpair.node.right != null){
-                    callStack.push(new Pair(rpair.node.right ,0));
+                if (rpair.node.right != null) {
+                    // Push the right child onto the stack with callNum 0
+                    callStack.push(new Pair(rpair.node.right, 0));
                 }
-            }else{
+            } else {
+                // If callNum is 2, it means both subtrees are visited, so pop the node from the stack
                 callStack.pop();
             }
         }
+
+        // Return the inorder traversal list
         return list;
     }
-    
-    
 }
