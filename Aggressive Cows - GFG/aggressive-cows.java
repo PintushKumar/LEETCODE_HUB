@@ -33,34 +33,45 @@ class GFG {
 
 // User function Template for Java
 class Solution {
-    public static boolean canWePlace(int []stalls , int dist , int cows){
-        int cntCows =1 , last=stalls[0];
-        for(int i=1;i<stalls.length;i++){
-            if(stalls[i]-last>=dist){
-                cntCows++;
-                last=stalls[i];
+    // Function to check if we can place cows with given minimum distance
+    public static boolean canWePlace(int[] stalls, int dist, int cows) {
+        int cntCows = 1;  // Counter for placed cows
+        int last = stalls[0];  // Position of the last placed cow
+        
+        // Iterate over the remaining stalls
+        for (int i = 1; i < stalls.length; i++) {
+            if (stalls[i] - last >= dist) {  // Check if current stall is far enough from the last placed cow
+                cntCows++;  // Increment the counter for placed cows
+                last = stalls[i];  // Update the position of the last placed cow
             }
-            if(cntCows>=cows){
+            
+            if (cntCows >= cows) {  // If we have placed all the cows, return true
                 return true;
             }
         }
-        return false;
+        
+        return false;  // Return false if we cannot place all the cows
     }
+    
     public static int solve(int n, int cows, int[] stalls) {
-       // Collections.sort(stalls);
-       Arrays.sort(stalls);
-        //int n = stalls.length;
-        int low =1 , high = stalls[n-1]-stalls[0] ;
-        int ans =-1;
-        while(low<=high){
-            int mid = (low+high)/2;
-            if(canWePlace(stalls , mid , cows)){
-                low=mid+1;
+        Arrays.sort(stalls);  // Sort the stalls in ascending order
+        
+        int low = 1;  // Minimum possible distance between cows
+        int high = stalls[n - 1] - stalls[0];  // Maximum possible distance between cows
+        int ans = -1;  // Variable to store the maximum possible distance
+        
+        // Perform binary search to find the maximum possible distance
+        while (low <= high) {
+            int mid = (low + high) / 2;  // Calculate the middle distance
+            
+            if (canWePlace(stalls, mid, cows)) {  // Check if we can place cows with the middle distance
+                low = mid + 1;  // Update the lower bound and store the current distance as the potential answer
                 ans = mid;
-            }else{
-                high = mid-1;
+            } else {
+                high = mid - 1;  // Update the upper bound
             }
         }
-        return ans;
+        
+        return ans;  // Return the maximum possible distance
     }
 }
