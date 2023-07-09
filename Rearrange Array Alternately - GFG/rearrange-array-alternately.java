@@ -54,19 +54,26 @@ class Solution{
     // temp: input array
     // n: size of array
     //Function to rearrange  the array elements alternately.
-    public static void rearrange(long arr[], int n){
-        
-        // Your code here
-        long temp[] = arr.clone();
-        int st = 0 , end = n-1;
-        for(int i=0;i<n;i++){
-            if(i%2 == 0){
-                arr[i] = temp[end--];
-            }else{
-                arr[i]=temp[st++];
-            }
+public static void rearrange(long arr[], int n){
+    long maxElement = arr[n-1] + 1; // Store a value greater than the maximum value in the array
+    int st = 0, end = n - 1;
+    
+    for(int i = 0; i < n; i++){
+        if(i % 2 == 0){
+            arr[i] += (arr[end] % maxElement) * maxElement;
+            end--;
+        } else {
+            arr[i] += (arr[st] % maxElement) * maxElement;
+            st++;
         }
     }
+    
+    for(int i = 0; i < n; i++){
+        arr[i] /= maxElement;
+    }
+}
+
+
     
 }
 
