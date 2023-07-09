@@ -54,27 +54,27 @@ class Solution{
     // temp: input array
     // n: size of array
     //Function to rearrange  the array elements alternately.
-public static void rearrange(long arr[], int n){
-    long maxElement = arr[n-1] + 1; // Store a value greater than the maximum value in the array
-    int st = 0, end = n - 1;
-    
-    for(int i = 0; i < n; i++){
-        if(i % 2 == 0){
-            arr[i] += (arr[end] % maxElement) * maxElement;
-            end--;
-        } else {
-            arr[i] += (arr[st] % maxElement) * maxElement;
-            st++;
+    public static void rearrange(long arr[], int n){
+        long maxElement = arr[n-1] + 1; // Store a value greater than the maximum value in the array
+        int st = 0, end = n - 1;
+        
+        for(int i = 0; i < n; i++){
+            if(i % 2 == 0){
+                // Encoding: Add the modulo value multiplied by maxElement to the current element
+                arr[i] += (arr[end] % maxElement) * maxElement; // Example: arr[i] = 1 + (5 % 6) * 6 = 31
+                end--;
+            } else {
+                // Encoding: Add the modulo value multiplied by maxElement to the current element
+                arr[i] += (arr[st] % maxElement) * maxElement; // Example: arr[i] = 2 + (2 % 6) * 6 = 14
+                st++;
+            }
+        }
+        
+        for(int i = 0; i < n; i++){
+            // Decoding: Divide the encoded value by maxElement to obtain the rearranged array
+            arr[i] /= maxElement; // Example: arr[i] = 31 / 6 = 5
         }
     }
-    
-    for(int i = 0; i < n; i++){
-        arr[i] /= maxElement;
-    }
-}
-
-
-    
 }
 
 
