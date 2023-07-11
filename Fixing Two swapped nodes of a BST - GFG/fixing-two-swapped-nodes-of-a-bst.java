@@ -173,63 +173,81 @@ class Node {
 */
 
 class Solution {
-    public class Pair{
+    public class Pair {
         Node node;
         int state;
-        Pair(Node node , int state){
+        
+        Pair(Node node, int state) {
             this.node = node;
             this.state = state;
         }
     }
-    public Node getNextInorder(Stack<Pair>st){
-        while(st.size()>0){
+    
+    public Node getNextInorder(Stack<Pair> st) {
+        // Traverses the BST in in-order and returns the next node to visit
+        // If state == 1, it visits the left side of the node
+        // If state == 2, it visits the right side of the node
+        // If state == 3, it removes itself from the stack
+        while (st.size() > 0) {
             Pair top = st.peek();
-            if(top.state ==1){
-                // pre
+            if (top.state == 1) {
+                // Pre-order traversal: Go to the left side of the node
                 top.state++;
-                if(top.node.left != null){
-                    st.push(new Pair(top.node.left , 1));
+                if (top.node.left != null) {
+                    st.push(new Pair(top.node.left, 1));
                 }
-            }else if(top.state ==2){
-                // in
+            } else if (top.state == 2) {
+                // In-order traversal: Visit the node
                 top.state++;
-                if(top.node.right != null){
-                    st.push(new Pair(top.node.right , 1));
+                if (top.node.right != null) {
+                    st.push(new Pair(top.node.right, 1));
                 }
                 return top.node;
-            }else{
-                // post
+            } else {
+                // Post-order traversal: Go to the right side of the node
                 st.pop();
             }
         }
-        return null;
+        return null; // No more nodes to visit
     }
+    
     public Node correctBST(Node root) {
-        // code here.
+        // Fixes the BST by swapping back the two wrong nodes without changing the structure
         Stack<Pair> st = new Stack<>();
-        st.push(new Pair(root , 1));
-        Node curr = getNextInorder(st);
-        Node prev =null;
-        Node a = null , b= null;
-        while(curr != null){
-            if(prev == null){
-                prev = curr;
-                curr = getNextInorder(st);
-            }else if(prev.data > curr.data){
-                if(a== null){
-                    a=prev;
+        st.push(new Pair(root, 1));
+        
+        Node curr = getNextInorder(st); // Gets the first node of in-order traversal
+        Node prev = null;
+        Node a = null, b = null;
+        
+        while (curr != null) {
+            if (prev == null) {
+                prev = curr; // Updates the prev to the current node
+                curr = getNextInorder(st); // Advances to the next node in in-order traversal
+            } else if (prev.data > curr.data) {
+                // This is a potential pair where the nodes are not sorted
+                // Indicates a wrong node in the BST
+                
+                if (a == null) {
+                    // First wrong node is found
+                    a = prev;
                 }
-                b= curr;
-                prev = curr;
-                curr = getNextInorder(st);
-            }else{
-                prev = curr;
-                curr = getNextInorder(st);
+                b = curr; // Second wrong node is found
+                prev = curr; // Updates the prev to the current node
+                curr = getNextInorder(st); // Advances to the next node in in-order traversal
+            } else {
+                prev = curr; // Updates the prev to the current node
+                curr = getNextInorder(st); // Advances to the next node in in-order traversal
             }
         }
+        
+        // Swaps the correct values between the nodes
         int temp = a.data;
         a.data = b.data;
-        b.data= temp;
+        b.data = temp;
+        
+        // Returns the corrected BST
         return root;
     }
 }
+
