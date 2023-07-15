@@ -1,30 +1,38 @@
 class Solution {
     public int maxSubarraySumCircular(int[] nums) {
-        int maxiSubArr = Integer.MIN_VALUE;
-        int tempMax=0;
+        // Initialize variables to track the maximum and minimum subarrays
+        int maxiSubArr = Integer.MIN_VALUE; // Maximum subarray sum
+        int tempMax = 0; // Temporary maximum sum
         
-        int miniSubArr = Integer.MAX_VALUE;
-        int tempMin = 0;
+        int miniSubArr = Integer.MAX_VALUE; // Minimum subarray sum
+        int tempMin = 0; // Temporary minimum sum
         
-        int totalSum =0;
-        for(int i=0;i<nums.length;i++){
-            totalSum+=nums[i];
-            // maxi
-            int curr = nums[i];
-            int prev = tempMax+nums[i];
-            tempMax = Math.max(curr , prev);
-            maxiSubArr = Math.max(maxiSubArr , tempMax);
+        int totalSum = 0; // Total sum of all elements
+        
+        // Iterate through the array
+        for (int i = 0; i < nums.length; i++) {
+            totalSum += nums[i]; // Calculate the total sum of all elements
             
-            // mini 
-            int currmin = nums[i];
-            int prevmin = tempMin+nums[i];
-            tempMin = Math.min(currmin , prevmin);
-            miniSubArr = Math.min(miniSubArr , tempMin);
+            // Calculate the maximum subarray sum
+            int currMax = nums[i]; // Current element
+            int prevMax = tempMax + nums[i]; // Maximum sum ending at the previous element
+            tempMax = Math.max(currMax, prevMax); // Update temporary maximum sum
+            maxiSubArr = Math.max(maxiSubArr, tempMax); // Update maximum subarray sum
+            
+            // Calculate the minimum subarray sum
+            int currmin = nums[i]; // Current element
+            int prevmin = tempMin + nums[i]; // Minimum sum ending at the previous element
+            tempMin = Math.min(currmin, prevmin); // Update temporary minimum sum
+            miniSubArr = Math.min(miniSubArr, tempMin); // Update minimum subarray sum
         }
-        if(maxiSubArr<0){
+        
+        // If the maximum subarray sum is negative, return it (as there are no positive subarrays)
+        if (maxiSubArr < 0) {
             return maxiSubArr;
         }
-        int wrapAround = totalSum -miniSubArr;
-        return Math.max(maxiSubArr , wrapAround);
+        
+        // Calculate the wrap-around subarray sum and return the maximum of maximum subarray sum and wrap-around sum
+        int wrapAround = totalSum - miniSubArr; // Sum of all elements minus the minimum subarray sum
+        return Math.max(maxiSubArr, wrapAround);
     }
 }
