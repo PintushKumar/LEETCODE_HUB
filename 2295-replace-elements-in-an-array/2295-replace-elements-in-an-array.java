@@ -9,11 +9,11 @@ class Solution {
         for(int i=0;i<n;i++){
             int numsele = operations[i][0];
             int oprEle = operations[i][1];
-            if(hm.containsKey(numsele)){
+           // if(hm.containsKey(numsele)){
                 int indx = hm.get(numsele);
                 nums[indx]= oprEle;
                 hm.put(oprEle,indx );
-            }
+           // }
         }
         return nums;
     }
