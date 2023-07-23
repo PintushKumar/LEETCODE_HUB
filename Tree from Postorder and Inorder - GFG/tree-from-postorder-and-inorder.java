@@ -75,22 +75,22 @@ class GfG
     }
 
     // Recursive function to construct the binary tree from inorder and preorder arrays
-    public static Node solve(int in[], int pre[], int[] preIndex, int inorderStart, int inorderEnd) {
+    public static Node solve(int in[], int pos[], int[] posIndex, int inorderStart, int inorderEnd) {
         // Base case: If preIndex is out of range or the inorder indices are invalid, return null
-        if ((preIndex[0] < 0) || (inorderStart > inorderEnd)) {
+        if ((posIndex[0] < 0) || (inorderStart > inorderEnd)) {
             return null;
         }
 
-        int element = pre[preIndex[0]]; // Get the current element from the preorder array
+        int element = pos[posIndex[0]]; // Get the current element from the preorder array
         Node root = new Node(element); // Create a new node with the current element
-        preIndex[0]--; // Move to the next element in the preorder array
+        posIndex[0]--; // Move to the next element in the preorder array
 
         // Find the position of the current element in the inorder array
         int position = findPosition(in, inorderStart, inorderEnd, element);
 
         // Recursively construct the left and right subtrees
-        root.right = solve(in, pre, preIndex,  position + 1 , inorderEnd);
-        root.left = solve(in, pre, preIndex, inorderStart, position-1);
+        root.right = solve(in, pos, posIndex,  position + 1 , inorderEnd);
+        root.left = solve(in, pos, posIndex, inorderStart, position-1);
 
         // Return the root of the current subtree
         return root;
@@ -98,9 +98,9 @@ class GfG
 
     // Main function to build the binary tree from inorder and preorder arrays
     public static Node buildTree(int in[], int pos[], int n) {
-        int[] preorderIndex = { 0 }; // Initialize the preorder index as 0
-        preorderIndex[0] = n-1;
-        Node ans = solve(in, pos, preorderIndex, 0, n - 1); // Call the solve function
+        int[] posIndex = { 0 }; // Initialize the preorder index as 0
+        posIndex[0] = n-1;
+        Node ans = solve(in, pos, posIndex, 0, n - 1); // Call the solve function
         return ans; // Return the root of the constructed binary tree
     }
 }
