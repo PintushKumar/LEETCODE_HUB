@@ -125,20 +125,22 @@ class Node{
 */
 class Solution
 {
+   
     // returns the inorder successor of the Node x in BST (rooted at 'root')
-	public Node inorderSuccessor(Node root,Node x)
-         {
+	public Node inorderSuccessor(Node root,Node n)
+    {
           //add code here.
-          Node temp = root;
-          Node  ans =null;
-          while(temp != null){
-              if(x.data>=temp.data){
-                temp = temp.right;
-              }else{
-                ans = temp;
-                temp = temp.left;
-              }
+        int ans = -1;
+        int x = n.data;
+        while (root != null) {
+            if (root.data > x) {
+                ans = root.data;
+                root = root.left; // Move to the left subtree to find a smaller node
+            } else {
+                root = root.right; // Move to the right subtree
             }
-          return ans;
-         }
+        }
+        return new Node(ans);
+
+    }
 }
