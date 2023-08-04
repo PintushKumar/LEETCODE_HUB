@@ -45,51 +45,15 @@ class GFG
 
 class Solution
 { 
-    
-    public static void insertAtBottom(Stack<Integer> s, int x) {
-        if (s.isEmpty()) {
-            s.push(x);
-            return;
+    static void reverse(Stack<Integer> s)
+    {
+        // add your code here
+        ArrayList<Integer> st = new ArrayList<>();
+        while(s.size()>0){
+            st.add(s.pop());
         }
-    
-        int temp = s.pop();
-        insertAtBottom(s, x);
-        s.push(temp);
-  }
-
-  static void reverse(Stack<Integer> s) {
-        if (s.isEmpty()) {
-            return;
+        for(int i=0;i<st.size();i++){
+            s.push(st.get(i));
         }
-    
-        int temp = s.pop();
-        reverse(s);
-        insertAtBottom(s, temp);
-  }
-
-    // static void insert_at_bottom(Stack<Integer> s, int x){
-    //     if(s.size()==0){
-    //         s.add(x);
-    //     }
-    //     else{
-    //         int y= s.peek();
-    //         s.pop();
-    //         insert_at_bottom(s, x);
-    //         s.add(y);
-    //     }
-    // }
-    // static void fun(Stack<Integer> s){
-    //     if(s.size()>0){
-    //         int x=s.peek();
-    //         s.pop();
-    //         fun(s);
-    //         insert_at_bottom(s, x);
-    //     }
-    // }
-    // static void reverse(Stack<Integer> s)
-    // {
-    //     // add your code here
-    //     fun(s);
-    // }
-
+    }
 }
