@@ -35,13 +35,12 @@ class Solution
         //add code here.
         Arrays.sort(arr);
         for(int i=0;i<n;i++){
-            int newTarget = -arr[i];
-            int l=i+1;
-            int r=n-1;
+            int l = i+1;
+            int r = n-1;
             while(l<r){
-                if(arr[l]+arr[r]== newTarget){
+                if(arr[i]+arr[l]+arr[r]==0){
                     return true;
-                }else if(arr[l]+arr[r]<newTarget){
+                }else if(arr[i]+arr[l]+arr[r]<0){
                     l++;
                 }else{
                     r--;
