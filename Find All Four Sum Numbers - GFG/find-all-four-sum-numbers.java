@@ -51,9 +51,9 @@ class Solution {
 	   Arrays.sort(nums);
 	   int n = nums.length;
 	   int i=0;
-	   while(i<n){
+	   while(i<n-3){
 		   int j = i+1;
-		   while(j<n){
+		   while(j<n-2){
 			   int l = j+1;
 			   int r = n-1;
 			   while(l<r){
