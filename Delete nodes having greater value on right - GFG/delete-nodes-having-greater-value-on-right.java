@@ -112,35 +112,41 @@ class Node {
 
 class Solution {
     Node compute(Node head) {
-        Node dummy = new Node(0);
-        dummy.next = head;
-        Node current = dummy;
+        Node orgdummy = new Node(0); // Create a dummy node to simplify the code
+        Node dummy = orgdummy;
+        Node temp = head;
 
-        while (current != null && current.next != null) {
-            Node nextNode = current.next;
+        while (temp != null && temp.next != null) {
+            boolean gr = false;
 
-            // Flag to check if a greater value node is found on the right
-            boolean hasGreaterNode = false;
-
-            // Iterate through nodes on the right to find a greater value
-            Node runner = nextNode;
+            // Find the first greater value node on the right
+            Node runner = temp.next;
             while (runner != null) {
-                if (runner.data > nextNode.data) {
-                    hasGreaterNode = true;
+                if (runner.data > temp.data) {
+                    gr = true;
                     break;
                 }
                 runner = runner.next;
             }
 
-            // If a greater value node is found on the right, skip the current node
-            if (hasGreaterNode) {
-                current.next = nextNode.next;
-            } else {
-                current = current.next;
+            if (!gr) {
+                // No greater value node found, keep the current node
+                Node x = new Node(temp.data);
+                dummy.next = x;
+                dummy = dummy.next;
             }
+
+            temp = temp.next; // Move to the next node
         }
 
-        return dummy.next;
+        // Check the last node
+        if (temp != null) {
+            Node x = new Node(temp.data);
+            dummy.next = x;
+        }
+
+        return orgdummy.next; // Return the modified list starting from the next of the dummy node
     }
 }
+
 
