@@ -34,33 +34,7 @@ class Solution
 {
     ArrayList<Integer> countDistinct(int arr[], int n, int k)
     {
-        // code here 
-        // ArrayList<Integer > ans = new ArrayList<>();
-        // HashMap<Integer , Integer >  map = new HashMap<>();
-        // int i=0 , j=-1;
-        // while(i<=k-2){
-        //     i++;
-        //     map.put(arr[i] , map.getOrDefault(arr[i] , 0)+1);
-        // }
-        // i--;
-        // while(i<n-1){
-        //     // acquire
-        //     i++;
-        //     map.put(arr[i] , map.getOrDefault(arr[i] , 0)+1);
-        //     // work
-        //     ans.add(map.size());
-            
-        //     // release
-        //     j++;
-        //     int freq = map.getOrDefault(arr[j] ,0);
-        //     if(freq ==1){
-        //         map.remove(arr[j]);
-        //     }else{
-        //         map.put(arr[j] , map.getOrDefault(arr[j] , freq-1));
-        //     }
-        //   // i++;
-        // }
-        // return ans;
+     
         
         ArrayList<Integer > ans = new ArrayList<>();
         HashMap<Integer , Integer >  map = new HashMap<>();
