@@ -21,23 +21,21 @@ class GFG {
 
 // User function template for Java
 class Solution {
-    static int areAnagram(String S1, String S2) {
+    static int areAnagram(String a, String b) {
         // code here
-        if(S1.length()!=S2.length()){
-            return 0;
+        int freqArr [] = new int [26];
+        for(int i=0;i<a.length();i++){
+            freqArr[a.charAt(i)-97]++;
         }
-        int count[] = new int[26];
-        for(int i=0;i<S1.length();i++){
-            count[S1.charAt(i)-'a']++;
-        }
-        for(int i=0;i<S2.length();i++){
-            count[S2.charAt(i)-'a']--;
+        for(int i=0;i<b.length();i++){
+            freqArr[b.charAt(i)-97]--;
         }
         for(int i=0;i<26;i++){
-            if(count[i]!=0){
+            if(freqArr[i] != 0){
                 return 0;
             }
         }
+
         return 1;
     }
 }
