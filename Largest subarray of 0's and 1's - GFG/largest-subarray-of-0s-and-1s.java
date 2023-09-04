@@ -43,22 +43,25 @@ class Solution {
     int maxLen(int[] arr, int N)
     {
         // Your code here
-        HashMap<Integer ,Integer> map = new HashMap<>();
-        map.put(0 ,-1);
-        int sum =0 , ans = 0;
+        int sum =0;
+        int max_len =0;
+        HashMap<Integer , Integer > map = new HashMap<>();
+        map.put(sum , -1);
         for(int i=0;i<N;i++){
             if(arr[i]==0){
-                sum+=-1;
+                sum -=1;
             }else{
-                sum+=+1;
+                sum+=1;
             }
+            
             if(map.containsKey(sum)){
-                int indx = map.get(sum);
-                ans = Math.max(ans , i-indx);
+                int idx = map.get(sum);
+                int len = i-idx;
+                max_len = Math.max(max_len , len);
             }else{
-                map.put(sum ,i);
+                map.put(sum , i);
             }
         }
-        return ans;
+        return max_len;
     }
 }
