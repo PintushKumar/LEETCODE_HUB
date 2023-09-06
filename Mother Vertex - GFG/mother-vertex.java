@@ -32,39 +32,43 @@ class GFG
 
 
 
-class Solution
-{
-    void dfs(ArrayList<ArrayList<Integer>>adj , int node , boolean visited[]){
-        visited[node]=true;
-        for(int neighBour : adj.get(node)){
-            if(visited[neighBour]==false){
-                dfs(adj , neighBour , visited);
+class Solution {
+    // Helper function for depth-first search (DFS).
+    void dfs(ArrayList<ArrayList<Integer>> adj, int node, boolean visited[]) {
+        visited[node] = true; // Mark the current node as visited.
+
+        // Traverse neighbors of the current node.
+        for (int neighbor : adj.get(node)) {
+            if (!visited[neighbor]) {
+                dfs(adj, neighbor, visited); // Recursive call for unvisited neighbors.
             }
         }
     }
-    //Function to find a Mother Vertex in the Graph.
-    public int findMotherVertex(int V, ArrayList<ArrayList<Integer>>adj)
-    {
-        // Code here
-        boolean visited [] = new boolean[V];
-        int ans =-1;
-        for(int i=0;i<V;i++){
-            if(visited[i]==false){
-                ans = i;
-                dfs(adj , i , visited);
+
+    // Function to find a Mother Vertex in the Graph.
+    public int findMotherVertex(int V, ArrayList<ArrayList<Integer>> adj) {
+        boolean visited[] = new boolean[V]; // Array to track visited nodes.
+        int potentialMotherVertex = -1; // Initialize a potential mother vertex.
+
+        // Loop through all nodes in the graph.
+        for (int i = 0; i < V; i++) {
+            if (!visited[i]) {
+                potentialMotherVertex = i; // Update potential mother vertex.
+                dfs(adj, i, visited); // Perform DFS from this node.
             }
         }
-        
-        // checking again // this is for handling components of graph 
-        
-        boolean visited2 [] = new boolean[V];
-        dfs(adj , ans , visited2);
-        for(boolean visit : visited2){
-            if(!visit){
-                return -1;
+
+        // Checking again to handle components of the graph.
+        boolean visited2[] = new boolean[V]; // Array to track visited nodes for the second DFS.
+        dfs(adj, potentialMotherVertex, visited2); // Perform DFS from the potential mother vertex.
+
+        // Check if all nodes are visited in the second DFS.
+        for (boolean visit : visited2) {
+            if (!visit) {
+                return -1; // If not all nodes are visited, there's no mother vertex.
             }
         }
-        
-        return ans;
+
+        return potentialMotherVertex; // Return the potential mother vertex.
     }
 }
