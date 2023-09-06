@@ -115,58 +115,46 @@ class GfG {
 
 
 //User function Template for Java
-// *************************************  Pair Class created by me *************
-class Pair {
-    int hd; // horizontal distance
-    Node node;
 
-    Pair(int hd, Node node) {
-        this.hd = hd;
+class Pair{
+    int hd;
+    Node node;
+    Pair(int hd , Node node){
+        this.hd = hd ;
         this.node = node;
     }
 }
 
-class Solution {
-    // Function to return a list containing the bottom view of the given tree.
-    public ArrayList<Integer> bottomView(Node root) {
+class Solution
+{
+    //Function to return a list containing the bottom view of the given tree.
+    public ArrayList <Integer> bottomView(Node root)
+    {
         // Code here
-        ArrayList<Integer> ans = new ArrayList<>();
-        if (root == null) {
-            return ans;
-        }
-        
-        // Map to store the horizontal distance and corresponding node value.
-        // We are using TreeMap to automatically sort the map entries by keys.
-        Map<Integer, Integer> map = new TreeMap<>();
-        
-        // Queue to perform level order traversal of the tree.
+        TreeMap<Integer , Integer > map = new TreeMap<>();
         Queue<Pair> q = new ArrayDeque<>();
-        
-        // Adding the root node with horizontal distance 0 to the queue.
-        q.add(new Pair(0, root));
-        
-        while (q.size() > 0) {
-            Pair curr = q.poll();
-            
-            // Update the map with the current node value for its horizontal distance.
-            map.put(curr.hd, curr.node.data);
-            
-            // Adding the left child to the queue with horizontal distance reduced by 1.
-            if (curr.node.left != null) {
-                q.add(new Pair(curr.hd - 1, curr.node.left));
-            }
-            
-            // Adding the right child to the queue with horizontal distance increased by 1.
-            if (curr.node.right != null) {
-                q.add(new Pair(curr.hd + 1, curr.node.right));
+        q.add(new Pair(0 , root));
+        while(q.size()>0){
+            int size = q.size();
+            while(size-->0){
+                Pair curr = q.remove();
+                int hdist = curr.hd;
+                map.put(hdist , curr.node.data);
+                if(curr.node.left != null){
+                    q.add(new Pair(curr.hd-1 , curr.node.left));
+                }
+                if(curr.node.right != null){
+                    q.add(new Pair(curr.hd+1 , curr.node.right));
+                }
             }
         }
         
-        // Adding the values from the map to the answer list in sorted order.
-        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
-            ans.add(entry.getValue());
-        }
+        ArrayList<Integer> res = new ArrayList<>();
         
-        return ans;
+        for(Map.Entry<Integer , Integer> mp : map.entrySet()){
+            res.add(mp.getValue());
+        }
+        return res;
+        
     }
 }
