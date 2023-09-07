@@ -46,8 +46,10 @@ class Solution {
         }
         
         for(int i=0;i<edges.length;i++){
-            adjList.get(edges[i][0]).add(edges[i][1]);
-            adjList.get(edges[i][1]).add(edges[i][0]);
+            int u = edges[i][0];
+            int v = edges[i][1];
+            adjList.get(u).add(v);
+            adjList.get(v).add(u);
         }
         
         return adjList;
