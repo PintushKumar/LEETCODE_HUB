@@ -136,12 +136,12 @@ class Tree
         if(node == null) return 0;
         while(node != null){
             if(node.key == val) return node.key;
-            else if(node.key > val){
-                node = node.left;
-            }
-            else{
+            else if(node.key <= val){
                 res = node;
                 node = node.right;
+            }
+            else{
+                node = node.left;
             }
         }
         return res.key;
