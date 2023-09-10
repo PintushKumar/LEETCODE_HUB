@@ -58,37 +58,87 @@ class Main {
 /*Complete the function below*/
 
 
+// class Solution
+// {
+//     public static void dfs(ArrayList<ArrayList<Integer>> adj , int u , boolean visited[] , Stack<Integer> st){
+//         visited[u] = true;
+        
+//         for(int v : adj.get(u)){
+//             if(!visited[v]){
+//                 dfs(adj , v , visited , st);
+//             }
+//         }
+//         st.push(u);
+//     }
+//     //Function to return list containing vertices in Topological order. 
+//     static int[] topoSort(int V, ArrayList<ArrayList<Integer>> adj) 
+//     {
+//         // add your code here
+//         boolean visited[] = new boolean[V];
+//         Stack<Integer> st = new Stack<>();
+//         for(int i=0;i<V;i++){
+//             if(!visited[i]){
+//                 dfs(adj , i , visited , st);
+//             }
+//         }
+        
+//         int n = st.size();
+//         int res [] = new int[n];
+//         int i=0;
+//         while(st.size()>0){
+//             res[i++]=st.pop();
+//         }
+        
+//         return res;
+//     }
+// }
+
+
 class Solution
 {
-    public static void dfs(ArrayList<ArrayList<Integer>> adj , int u , boolean visited[] , Stack<Integer> st){
-        visited[u] = true;
-        
-        for(int v : adj.get(u)){
-            if(!visited[v]){
-                dfs(adj , v , visited , st);
-            }
-        }
-        st.push(u);
-    }
     //Function to return list containing vertices in Topological order. 
     static int[] topoSort(int V, ArrayList<ArrayList<Integer>> adj) 
     {
         // add your code here
-        boolean visited[] = new boolean[V];
-        Stack<Integer> st = new Stack<>();
-        for(int i=0;i<V;i++){
-            if(!visited[i]){
-                dfs(adj , i , visited , st);
+        
+        Queue<Integer> q = new ArrayDeque<>();
+        int inDegree[] = new int[V];
+        
+        // calculate Indegree Array
+        
+        for(int u = 0;u<V;u++){
+            for(int v:adj.get(u)){
+                inDegree[v]++;
             }
         }
         
-        int n = st.size();
-        int res [] = new int[n];
-        int i=0;
-        while(st.size()>0){
-            res[i++]=st.pop();
+        
+        // fill Queue with Indegree With Zero
+        
+        for(int i=0;i<V;i++){
+            if(inDegree[i]==0){
+                q.add(i);
+            }
         }
         
-        return res;
+        ArrayList<Integer> ans = new ArrayList<>();
+        while(q.size()>0){
+            int u = q.remove();
+            ans.add(u);
+            for(int v : adj.get(u)){
+                inDegree[v]--;
+                if(inDegree[v]==0){
+                    q.add(v);
+                }
+            }
+        }
+    
+        
+        int result []=new int [ans.size()];
+        for(int i=0;i<ans.size();i++){
+            result[i]=ans.get(i);
+        }
+        
+        return result;
     }
 }
