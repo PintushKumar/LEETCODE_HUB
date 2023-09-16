@@ -35,38 +35,73 @@ class GFG
 // } Driver Code Ends
 
 
-class Solution
-{
-    public  boolean dfs(ArrayList<ArrayList<Integer>>adj , int curr , int color[] , int currColor){
-        color[curr]= currColor;
-        for(int neighbor: adj.get(curr)){
-            if(color[neighbor]==color[curr]){
-               return false;
-            }
-            else if(color[neighbor]==-1){
-               int colorOfNeighbor = 1-currColor;
-               
-               if(dfs(adj , neighbor , color , colorOfNeighbor)== false){
-                   return false;
-               }
+class Solution {
+    public boolean isBipartite(int numVertices, ArrayList<ArrayList<Integer>> adjList) {
+        int[] vertexColors = new int[numVertices];
+        Arrays.fill(vertexColors, -1); // Initialize all vertices as uncolored (-1)
+        
+        // 0 represents as green color
+        // 1 represents as blue color
+
+        // for (int startVertex = 0; startVertex < numVertices; startVertex++) {
+        //     if (vertexColors[startVertex] == -1) { // If the vertex is uncolored
+        //         // Start a DFS traversal from this uncolored vertex
+        //         if (!dfs(adjList, startVertex, vertexColors, 0)) {
+        //             return false; // If it's not bipartite, return false
+        //         }
+        //     }
+        // }
+        // // If the DFS traversal is successful for all components, the graph is bipartite
+        // return true;
+        
+        
+          for (int startVertex = 0; startVertex < numVertices; startVertex++) {
+            if (vertexColors[startVertex] == -1) { // If the vertex is uncolored
+                // Start a DFS traversal from this uncolored vertex
+                if (!bfs(adjList, startVertex, vertexColors)) {
+                    return false; // If it's not bipartite, return false
+                }
             }
         }
+        // If the DFS traversal is successful for all components, the graph is bipartite
         return true;
     }
-   public boolean isBipartite(int V, ArrayList<ArrayList<Integer>>adj)
-    {
-        // Code here
-        int color[]= new int[V];
-        Arrays.fill(color, -1);
-        for(int i=0;i<V;i++){
-            if(color[i]==-1){
-                if(dfs(adj , i , color , 1)==false){
+
+    // public boolean dfs(ArrayList<ArrayList<Integer>> adjList, int currentVertex, int[] vertexColors, int currentColor) {
+    //     vertexColors[currentVertex] = currentColor;
+
+    //     for (int neighbor : adjList.get(currentVertex)) {
+    //         if (vertexColors[neighbor] == vertexColors[currentVertex]) {
+    //             return false; // If the neighbor has the same color as the current vertex, the graph is not bipartite
+    //         } else if (vertexColors[neighbor] == -1) {
+    //             int neighborColor = 1 - currentColor; // Toggle the color (0 to 1 or 1 to 0)
+
+    //             if (!dfs(adjList, neighbor, vertexColors, neighborColor)) {
+    //                 return false; // If the recursive call returns false, the graph is not bipartite
+    //             }
+    //         }
+    //     }
+    //     // If all neighbors are successfully colored, the graph is bipartite
+    //     return true;
+    // }
+    
+    
+    public boolean bfs(ArrayList<ArrayList<Integer>> adjList, int currentVertex, int[] vertexColors){
+        Queue<Integer> q = new ArrayDeque<>();
+        q.add(currentVertex);
+        vertexColors[currentVertex] =1;  // we color currentVertex as blue
+        while(q.size()>0){
+            int curr = q.remove();
+            for(int neighbor : adjList.get(curr)){
+                if(vertexColors[neighbor]== vertexColors[curr]){
                     return false;
+                }else if(vertexColors[neighbor]==-1){
+                    vertexColors[neighbor] = 1-vertexColors[curr];
+                    q.add(neighbor);
                 }
             }
         }
         
-        return  true;
+        return true;
     }
-    
 }
