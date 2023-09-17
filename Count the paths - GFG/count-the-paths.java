@@ -38,18 +38,18 @@ class GFG
 class Solution
 {
     public void dfs(ArrayList<ArrayList<Integer>> adj , int s , int d , int count[] , boolean [] visited){
-        visited[s]=true;
+       // visited[s]=true;
         if(s==d){
             count[0]++;
         }else{
             for(int v:adj.get(s)){
-                if(!visited[v]){
+                //if(!visited[v]){
                     dfs(adj , v,d , count , visited);
-                }
+                //}
             }
         }
         
-        visited[s]=false;
+      //  visited[s]=false;
     }
     public int possible_paths(int[][] edges, int n, int s, int d)
     {
