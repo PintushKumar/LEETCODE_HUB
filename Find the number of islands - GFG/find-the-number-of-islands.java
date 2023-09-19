@@ -28,36 +28,45 @@ class GFG {
 
 
 class Solution {
-    public void dfs(char [][] grid , int i , int j , int n  , int m ){
-        if(i<0 || i>=n || j<0 || j>=m || grid[i][j]=='0'){
+    // Depth-First Search (DFS) function to explore connected land cells
+    public void dfs(char[][] grid, int i, int j, int n, int m) {
+        // Base case: If the current cell is out of bounds or is water ('0'), return
+        if (i < 0 || i >= n || j < 0 || j >= m || grid[i][j] == '0') {
             return;
         }
         
-        grid[i][j] = '0';  // mark
-        
-        dfs(grid , i-1 , j , n, m);
-        dfs(grid , i+1 , j , n, m);
-        dfs(grid , i , j-1 , n, m);
-        dfs(grid , i , j+1 , n, m);
-        dfs(grid , i-1 , j-1 , n, m);
-        dfs(grid , i+1 , j+1 , n, m);
-        dfs(grid , i-1 , j+1 , n, m);
-        dfs(grid , i+1 , j-1 , n, m);
+        // Mark the current cell as visited by changing it to '0'
+        grid[i][j] = '0';  
+
+        // Recursively visit neighboring cells
+        dfs(grid, i - 1, j, n, m);  // Up
+        dfs(grid, i + 1, j, n, m);  // Down
+        dfs(grid, i, j - 1, n, m);  // Left
+        dfs(grid, i, j + 1, n, m);  // Right
+        dfs(grid, i - 1, j - 1, n, m);  // Upper left diagonal
+        dfs(grid, i + 1, j + 1, n, m);  // Lower right diagonal
+        dfs(grid, i - 1, j + 1, n, m);  // Upper right diagonal
+        dfs(grid, i + 1, j - 1, n, m);  // Lower left diagonal
     }
-    // Function to find the number of islands.
+
+    // Function to find the number of islands in the grid
     public int numIslands(char[][] grid) {
-        // Code here
-        int n = grid.length;
-        int m = grid[0].length;
-        int isLands = 0;
-        for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-                if(grid[i][j]=='1'){
-                    isLands++;
-                    dfs(grid , i , j , n , m);
+        int n = grid.length;    // Number of rows
+        int m = grid[0].length; // Number of columns
+        int islands = 0;        // Count of islands
+
+        // Loop through each cell in the grid
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                // If the current cell is land ('1'), mark it as part of an island and explore its connected land cells
+                if (grid[i][j] == '1') {
+                    islands++;
+                    dfs(grid, i, j, n, m);  // Explore the island using DFS
                 }
             }
         }
-        return isLands;
+
+        // Return the total number of islands
+        return islands;
     }
 }
