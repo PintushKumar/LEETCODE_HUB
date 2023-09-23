@@ -35,54 +35,58 @@ class GFG {
 // User function Template for Java
 
 class Solution {
-    public void dfs(int grid[][] , int srow , int scol , int i , int j , int n , int m  , ArrayList<String> list){
-        if(i<0 || i>=n || j<0 || j>=m || grid[i][j]==0){
+    // Recursive DFS function to explore an island starting from (srow, scol)
+    public void dfs(int grid[][], int srow, int scol, int i, int j, int n, int m, ArrayList<String> list) {
+        // Base cases for recursion
+        if (i < 0 || i >= n || j < 0 || j >= m || grid[i][j] == 0) {
             return;
         }
-        int row = i-srow;
-        int col = j-scol;
-        String s = row +""+col;
+
+        // Calculate relative position to the starting cell (srow, scol)
+        int row = i - srow;
+        int col = j - scol;
+
+        // Convert relative position to a string
+        String s = row + "" + col;
+
+        // Add the relative position to the list of positions for the island
         list.add(s);
-        grid[i][j]=0;
-        dfs(grid , srow , scol , i+1 , j , n , m , list);
-        dfs(grid , srow , scol , i , j-1 , n , m , list);
-        dfs(grid , srow , scol , i-1 , j , n , m , list);
-        dfs(grid , srow , scol , i , j+1 , n , m , list);
+
+        // Mark the current cell as visited (set it to 0)
+        grid[i][j] = 0;
+
+        // Recursively explore neighboring cells (up, down, left, and right)
+        dfs(grid, srow, scol, i + 1, j, n, m, list);
+        dfs(grid, srow, scol, i, j - 1, n, m, list);
+        dfs(grid, srow, scol, i - 1, j, n, m, list);
+        dfs(grid, srow, scol, i, j + 1, n, m, list);
     }
-//   void dfs(int r,int c,int[][] grid,boolean [][] vis,int srow,int scol,ArrayList<String>list){
-//         int n = grid.length;
-//         int m = grid[0].length;
-//         vis[r][c] = true;
-//         int row = r - srow;
-//         int col = c - scol;
-//         //Storing row col String in Arraylist
-//         String str = row+""+col;
-//         list.add(str);
-//         int [] dirX = {-1,0,1,0};
-//         int [] dirY = {0,-1,0,1};
-//         for(int i = 0; i < 4; i++){
-//             int nrow = r+dirX[i];
-//             int ncol = c+dirY[i];
-//             if(nrow >= 0 && ncol >= 0 && nrow < n && ncol < m && vis[nrow][ncol] == false && grid[nrow][ncol] == 1){
-//                 dfs(nrow,ncol,grid,vis,srow,scol,list);
-//             }
-//         }
-//     }
- 
+
+    // Function to count distinct islands in the given grid
     int countDistinctIslands(int[][] grid) {
-         int n = grid.length;
-         int m = grid[0].length;
-         HashSet<ArrayList<String>>set = new HashSet<>();
-       //  boolean [][] vis = new boolean[n][m];
-         for(int i = 0; i < n; i++){
-             for(int j = 0; j < m; j++){
-                 if( grid[i][j] == 1){
-                     ArrayList<String>list = new ArrayList<>();
-                     dfs(grid , i ,j , i , j , n , m , list);
-                     set.add(list);
-                 }
-             }
-         }
-         return set.size();
-}
+        int n = grid.length;
+        int m = grid[0].length;
+
+        // HashSet to store unique island configurations
+        HashSet<ArrayList<String>> set = new HashSet<>();
+
+        // Iterate through the grid to find islands and store their configurations
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (grid[i][j] == 1) {
+                    // ArrayList to store the positions of the current island
+                    ArrayList<String> list = new ArrayList<>();
+
+                    // Explore the island and store its configuration
+                    dfs(grid, i, j, i, j, n, m, list);
+
+                    // Add the island's configuration to the HashSet
+                    set.add(list);
+                }
+            }
+        }
+
+        // Return the count of distinct islands
+        return set.size();
+    }
 }
