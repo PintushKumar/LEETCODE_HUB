@@ -163,7 +163,9 @@ class Solution
 {
     static int[] dijkstra(int V, ArrayList<ArrayList<ArrayList<Integer>> > adj, int S)
     {
-        Queue<Pair> pq = new PriorityQueue<>((a, b) -> a.weight - b.weight);
+        Queue<Pair> pq = new PriorityQueue<>((a, b) ->{
+          return a.weight - b.weight;  
+        } );
         pq.add(new Pair(S, 0));
         int ans[] = new int[V];
         Arrays.fill(ans, Integer.MAX_VALUE);
