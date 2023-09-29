@@ -53,47 +53,42 @@ class DriverClass
 
 
 //User function Template for Java
-class Pair
-{
+
+class Pair{
     int node;
     int weight;
-    Pair(int node, int weight)
-    {
-        this.node = node;
+    Pair(int node , int weight ){
+        this.node = node ;
         this.weight = weight;
     }
 }
 
 class Solution
 {
-    static int[] dijkstra(int V, ArrayList<ArrayList<ArrayList<Integer>> > adj, int S)
+    //Function to find the shortest distance of all the vertices
+    //from the source vertex S.
+    static int[] dijkstra(int V, ArrayList<ArrayList<ArrayList<Integer>>> adj, int S)
     {
-        Queue<Pair> pq = new PriorityQueue<>((a, b) ->{
-          return a.weight - b.weight;  
-        } );
-        pq.add(new Pair(S, 0));
-        int dist[] = new int[V];
-        Arrays.fill(dist, Integer.MAX_VALUE);
-        dist[S] = 0;
-        
-        while(!pq.isEmpty())
-        {
-            Pair currNode = pq.remove();
-            int u = currNode.node;
-            
-            for (ArrayList<Integer> neighbor : adj.get(u))
-            {
-                int v = neighbor.get(0);
-                int wt = neighbor.get(1);
-                
-                if (dist[u] + wt < dist[v])
-                {
-                    dist[v] = dist[u] + wt;
-                    pq.add(new Pair(v, dist[v]));
+        // Write your code here
+        Queue<Pair> pq = new PriorityQueue<>((a , b)->{
+            return a.weight - b.weight;
+        });
+        int dist [] = new int [V];
+        Arrays.fill(dist , Integer.MAX_VALUE);
+        pq.add(new Pair(S , 0));
+        dist[S]=0;
+        while(pq.size()>0){
+            Pair temp = pq.remove();
+            int currNode = temp.node;
+            for(ArrayList<Integer> nbr: adj.get(currNode)){
+                int newNode = nbr.get(0);
+                int edgewt = nbr.get(1);
+                if(dist[currNode]+edgewt < dist[newNode]){
+                    dist[newNode] = dist[currNode]+edgewt;
+                    pq.add(new Pair(newNode , dist[newNode]));
                 }
             }
         }
-        
         return dist;
     }
 }
