@@ -53,101 +53,6 @@ class DriverClass
 
 
 //User function Template for Java
-
-// class Pair
-// {
-//     int node;
-//     int weight;
-//     Pair(int node ,int weight)
-//     {
-//         this.node=node;
-//         this.weight=weight;
-//     }
-// }
-
-// class Solution
-// {
-//     static int[] dijkstra(int V, ArrayList<ArrayList<ArrayList<Integer>>> adjency, int S)
-//     {
-//         // Write your code here
-//         // Queue<Pair>pq=new PriorityQueue<>((a,b)->{
-//         //     return a.weight - b.weight;
-//         // });
-//         Queue<Pair> pq = new PriorityQueue<>((a, b) -> b.weight - a.weight);
-//         pq.add(new Pair(S,0));
-//         int ans[]=new int[V];
-//         Arrays.fill(ans,Integer.MAX_VALUE);
-//         ans[S]=0;
-//         while(!pq.isEmpty())
-//         {
-//             Pair currNode =pq.remove();
-//             int u= currNode.node;
-
-//             for(ArrayList<ArrayList<Integer>> adj:adjency )
-//             {
-//                 int v = adj.get(0).get(0);
-//                 int wt = adj.get(0).get(1);
-                
-//                 if(ans[u]+wt < ans[v]){
-//                     ans[v]=ans[u]+wt;
-//                     pq.add(new Pair(v , ans[v]));
-//                 }
-//             }
-//         }
-//         return ans;
-//     }
-// }
-
-// class Solution
-// {
-//     static int[] dijkstra(int V, ArrayList<ArrayList<ArrayList<Integer>>> adj, int S)
-//     {
-//         Queue<Pair> pq = new PriorityQueue<>((a, b) -> a.weight - b.weight);
-//         pq.add(new Pair(S, 0));
-//         int[] ans = new int[V];
-//         Arrays.fill(ans, Integer.MAX_VALUE);
-//         ans[S] = 0;
-
-//         while (!pq.isEmpty())
-//         {
-//             Pair currNode = pq.poll();
-//             int u = currNode.node;
-
-//             // for (Pair neighbor : adj.get(u))
-//             // {
-//             //     int v = neighbor.node;
-//             //     int wt = neighbor.weight;
-
-//             //     if (ans[u] + wt < ans[v])
-//             //     {
-//             //         ans[v] = ans[u] + wt;
-//             //         pq.add(new Pair(v, ans[v]));
-//             //     }
-//             // }
-            
-//              for(ArrayList<Integer> adj:adjency.get(u) )
-//             {
-//                 int v = adj.get(0).get(0);
-//                 int wt = adj.get(0).get(1);
-                
-//                 if(ans[u]+wt < ans[v]){
-//                     ans[v]=ans[u]+wt;
-//                     pq.add(new Pair(v , ans[v]));
-//                 }
-//             }
-//         }
-        
-//         // int res[] = new int [ans.size()];
-//         // for(int i=0;i<ans.size();i++){
-//         //     res[i]=ans.get(i);
-//         // }
-//         // return res;
-//         return ans;
-//     }
-// }
-
-
-
 class Pair
 {
     int node;
@@ -167,13 +72,13 @@ class Solution
           return a.weight - b.weight;  
         } );
         pq.add(new Pair(S, 0));
-        int ans[] = new int[V];
-        Arrays.fill(ans, Integer.MAX_VALUE);
-        ans[S] = 0;
+        int dist[] = new int[V];
+        Arrays.fill(dist, Integer.MAX_VALUE);
+        dist[S] = 0;
         
         while(!pq.isEmpty())
         {
-            Pair currNode = pq.poll();
+            Pair currNode = pq.remove();
             int u = currNode.node;
             
             for (ArrayList<Integer> neighbor : adj.get(u))
@@ -181,15 +86,15 @@ class Solution
                 int v = neighbor.get(0);
                 int wt = neighbor.get(1);
                 
-                if (ans[u] + wt < ans[v])
+                if (dist[u] + wt < dist[v])
                 {
-                    ans[v] = ans[u] + wt;
-                    pq.add(new Pair(v, ans[v]));
+                    dist[v] = dist[u] + wt;
+                    pq.add(new Pair(v, dist[v]));
                 }
             }
         }
         
-        return ans;
+        return dist;
     }
 }
 
