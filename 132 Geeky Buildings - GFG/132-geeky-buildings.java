@@ -31,19 +31,26 @@ class GFG
 //User function template for C++
 
 class Solution{
-    static boolean recreationalSpot(int[] arr , int n){
-        // Your code goes here 
-        int building3 = Integer.MIN_VALUE;
-        Stack<Integer> st = new Stack<>();
-        for(int i=n-1;i>=0;i--){
-            if(arr[i]<building3){
+    static boolean recreationalSpot(int[] nums , int n){
+        
+        int nums3 = Integer.MIN_VALUE; // Initialize nums3 to a minimum value.
+        Stack<Integer> st = new Stack<>(); // Create a stack to store elements.
+
+        // Traverse the input array in reverse order.
+        for (int i = n - 1; i >= 0; i--) {
+            // If we find a number smaller than nums3, it means we've found a 132 pattern.
+            if (nums[i] < nums3) {
                 return true;
             }
-            while(st.size()>0  && st.peek()<arr[i]){
-                building3 = st.pop();
+
+            // While the stack is not empty and the top element is smaller than the current number.
+            while (!st.isEmpty() && st.peek() < nums[i]) {
+                nums3 = st.pop(); // Update nums3 to the popped element.
             }
-            st.push(arr[i]);
+
+            st.push(nums[i]); // Push the current number onto the stack.
         }
-        return false;
+
+        return false; // If no 132 pattern is found, return false.
     }
 };
