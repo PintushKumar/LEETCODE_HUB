@@ -26,9 +26,6 @@ class GfG
 class Solution
 {
     public int helper(int start , int target){
-        if(start>=target){
-            return start - target;
-        }
         if(start == target){
             return 0;
         }
