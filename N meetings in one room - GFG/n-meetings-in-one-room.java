@@ -32,46 +32,49 @@ class GFG {
 
 // } Driver Code Ends
 
-class Pair {
-    int start;
-    int end;
-    
-    Pair(int start, int end) {
-        this.start = start;
-        this.end = end;
+class Meeting {
+    int startTime;
+    int endTime;
+
+    Meeting(int startTime, int endTime) {
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 }
 
 class Solution {
-    
-    
     // Function to find the maximum number of meetings that can
     // be performed in a meeting room.
-    public static int maxMeetings(int start[], int end[], int n) {
-        ArrayList<Pair> list = new ArrayList<>();
-       
+    public static int maxMeetings(int startTimes[], int endTimes[], int n) {
+        // Create a list of meetings with start and end times.
+        ArrayList<Meeting> meetings = new ArrayList<>();
+
+        // Fill the list with the given start and end times.
         for (int i = 0; i < n; i++) {
-            list.add(new Pair(start[i], end[i]));
+            meetings.add(new Meeting(startTimes[i], endTimes[i]));
         }
-      
-        Collections.sort(list, (a, b) -> a.end - b.end);
-      
-        int cnt = 0;
-        int prevEnd = Integer.MIN_VALUE;  // Initialize with the end time of the first meeting
-      
+
+        // Sort the list of meetings based on their end times in ascending order.
+        Collections.sort(meetings, (a, b) -> a.endTime - b.endTime);
+
+        int meetingCount = 0; // Initialize a counter for scheduled meetings.
+        int previousEndTime = Integer.MIN_VALUE; // Initialize with the end time of the first meeting.
+
+        // Iterate through the sorted list of meetings.
         for (int i = 0; i < n; i++) {
-            int currStart = list.get(i).start;
-            int currEnd = list.get(i).end;
-            if ( prevEnd < currStart) {
-                cnt++;
-                prevEnd = currEnd;
-            }else{
-                prevEnd = Math.min(prevEnd , currEnd);
+            int currentStartTime = meetings.get(i).startTime; // Get the start time of the current meeting.
+            int currentEndTime = meetings.get(i).endTime; // Get the end time of the current meeting.
+
+            // Check if the current meeting can be accommodated in the room based on its start and end times.
+            if (previousEndTime < currentStartTime) {
+                meetingCount++; // Increment the counter as a meeting can be scheduled.
+                previousEndTime = currentEndTime; // Update the previous end time with the end time of the current meeting.
+            } else {
+                previousEndTime = Math.min(previousEndTime, currentEndTime); // Update the previous end time to the minimum of the two end times.
             }
         }
-        
-        return cnt;
+
+        return meetingCount; // Return the total count of scheduled meetings.
     }
 }
 
- 
