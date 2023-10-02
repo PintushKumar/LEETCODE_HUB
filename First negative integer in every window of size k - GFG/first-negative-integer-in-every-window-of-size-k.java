@@ -43,133 +43,45 @@ class GFG {
 //User function Template for Java
 
 
-// class Compute {
-    
-//     public long[] printFirstNegativeInteger(long arr[], int N, int k)
-//     {
-//         ArrayList<Long> res = new ArrayList<>();
-//         long neg =0;
-//         boolean flag = false;
-//         int i=0, j=-1;
-//         for(;i<k;i++){
-//             if(arr[i] <0 && flag == false){
-//                 neg = arr[i];
-//                 flag =true;
-//             }
-//         }
-//         i--;
-//         res.add(neg);
-//         while(i<N-1){
-//             if(i-j==k){
-//                 if(arr[j+1]<0 && flag ==true){
-//                     neg = 0;
-//                     flag = false;
-//                 }
-//                 j++;
-//             }
-//             i++;
-//             if(arr[i]<0 && flag ==false){
-//                 neg = arr[i];
-//                 flag = true;
-//             }
-//             res.add(neg);
-//         }
-//         long ans []=new long[res.size()];
-//         for(int l=0;l<res.size();l++){
-//             ans[l]=res.get(l);
-//         }
-//         return ans;
-//     }
-// }
-
-// class Compute {
-//     public long[] printFirstNegativeInteger(long arr[], int N, int k) {
-//         ArrayList<Long> res = new ArrayList<>();
-//         long neg = 0;
-//         Dequeue<Long> dq = new ArrayDequeue<>();
-//         int i = 0, j = -1;
-        
-//         for (; i < k; i++) {
-//             if (arr[i] < 0) {
-//                 dq.addLast(arr[i]);
-//             }
-//         }
-//         i--;
-//         if(dq.size()==0){
-//             res.add(0);
-//         }else{
-//             res.add(dq.getFirst());
-//         }
-        
-//         while (i < N - 1) {
-//             if (i - j == k) {
-//                 if (arr[j + 1] < 0 ) {
-//                     dq.removeFirst();
-//                 }
-//                 j++;
-//             }
-//             i++;
-            
-//             if (arr[i] < 0) {
-//                 dq.addLas6t(arr[i]);
-//             }
-//             if(dq.size()==0){
-//                 res.add(0);
-//             }else{
-//                 res.add(dq.getFirst());
-//             }
-            
-//         }
-        
-//         long ans[] = new long[res.size()];
-//         for (int l = 0; l < res.size(); l++) {
-//             ans[l] = res.get(l);
-//         }
-//         return ans;
-//     }
-// }
-
-
-
-
 class Compute {
     public long[] printFirstNegativeInteger(long arr[], int N, int k) {
         ArrayList<Long> res = new ArrayList<>();
         long neg = 0;
         Deque<Long> dq = new ArrayDeque<>();
         int i = 0, j = -1;
-
+        
         for (; i < k; i++) {
             if (arr[i] < 0) {
                 dq.addLast(arr[i]);
             }
         }
         i--;
-        if (dq.size() == 0) {
-            res.add(0L);
-        } else {
+        if(dq.size()==0){
+            res.add(0l);
+        }else{
             res.add(dq.getFirst());
         }
-
+        
         while (i < N - 1) {
             if (i - j == k) {
-                if (arr[j + 1] < 0) {
+                if (arr[j + 1] < 0 ) {
                     dq.removeFirst();
                 }
                 j++;
             }
             i++;
-
+            
             if (arr[i] < 0) {
                 dq.addLast(arr[i]);
             }
-            if (dq.size() == 0) {
-                res.add(0L);
-            } else {
+            if(dq.size()==0){
+                res.add(0l);
+            }else{
                 res.add(dq.getFirst());
             }
+            
         }
-
+        
         long ans[] = new long[res.size()];
         for (int l = 0; l < res.size(); l++) {
             ans[l] = res.get(l);
@@ -177,3 +89,52 @@ class Compute {
         return ans;
     }
 }
+
+
+
+
+// class Compute {
+//     public long[] printFirstNegativeInteger(long arr[], int N, int k) {
+//         ArrayList<Long> res = new ArrayList<>();
+//         long neg = 0;
+//         Deque<Long> dq = new ArrayDeque<>();
+//         int i = 0, j = -1;
+
+//         for (; i < k; i++) {
+//             if (arr[i] < 0) {
+//                 dq.addLast(arr[i]);
+//             }
+//         }
+//         i--;
+//         if (dq.size() == 0) {
+//             res.add(0L);
+//         } else {
+//             res.add(dq.getFirst());
+//         }
+
+//         while (i < N - 1) {
+//             if (i - j == k) {
+//                 if (arr[j + 1] < 0) {
+//                     dq.removeFirst();
+//                 }
+//                 j++;
+//             }
+//             i++;
+
+//             if (arr[i] < 0) {
+//                 dq.addLast(arr[i]);
+//             }
+//             if (dq.size() == 0) {
+//                 res.add(0L);
+//             } else {
+//                 res.add(dq.getFirst());
+//             }
+//         }
+
+//         long ans[] = new long[res.size()];
+//         for (int l = 0; l < res.size(); l++) {
+//             ans[l] = res.get(l);
+//         }
+//         return ans;
+//     }
+// }
