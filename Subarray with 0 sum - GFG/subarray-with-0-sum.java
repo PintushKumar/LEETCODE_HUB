@@ -45,14 +45,14 @@ class Solution{
     static boolean findsum(int arr[],int n)
     {
         //Your code here
-        HashSet<Integer > set = new HashSet<>();
         int sum =0;
-        for(int ele : arr){
+        HashSet<Integer> set = new HashSet<>();
+        for(int ele: arr){
             sum+=ele;
-            if(sum ==0 || set.contains(sum)){
+            if(sum==0 || set.contains(sum)){
                 return true;
             }
-            set.add(sum );
+            set.add(sum);
         }
         return false;
     }
