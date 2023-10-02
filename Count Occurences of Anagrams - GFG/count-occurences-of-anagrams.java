@@ -26,72 +26,62 @@ class GFG {
 // User function Template for Java
 
 class Solution {
-    boolean allZero(int counter[]){
-        for(int ele:counter){
-            if(ele !=0){
+    // Helper function to check if all elements of the counter array are zero
+    boolean allZero(int counter[]) {
+        for (int ele : counter) {
+            if (ele != 0) {
                 return false;
             }
         }
         return true;
     }
 
+    // Main function to count occurrences of anagrams of the 'pat' in 'txt'
     int search(String pat, String txt) {
-        // code here
-        int counter[] = new int [26];
-        for(char ch :pat.toCharArray()){
-            counter[ch-'a']++;
+        // Initialize a counter array to store character frequencies
+        int counter[] = new int[26];
+
+        // Count character frequencies in the pattern 'pat'
+        for (char ch : pat.toCharArray()) {
+            counter[ch - 'a']++;
         }
+
+        // Length of the pattern and the text
         int window = pat.length();
         int n = txt.length();
-        int i=0 , j=0;
-        int count=0;
-        while(j<n){
-            counter[txt.charAt(j)-'a']--;
-            if(j-i+1 == window){
-                if(allZero(counter)){
-                    count++;
+
+        // Initialize two pointers for the sliding window
+        int i = 0, j = 0;
+
+        // Initialize a variable to count occurrences of anagrams
+        int count = 0;
+
+        // Slide the window through the text
+        while (j < n) {
+            // Decrement the character count as it enters the window
+            counter[txt.charAt(j) - 'a']--;
+
+            // If the window size matches the pattern size
+            if (j - i + 1 == window) {
+                // Check if the counter array has all zeros (an anagram is found)
+                if (allZero(counter)) {
+                    count++;  // Increment the count of anagrams
                 }
-                counter[txt.charAt(i)-'a']++;
+
+                // Increment the count for the character leaving the window
+                counter[txt.charAt(i) - 'a']++;
+
+                // Move the left pointer to the right
                 i++;
             }
+
+            // Move the right pointer to expand the window
             j++;
         }
+
+        // Return the count of anagrams found in the text
         return count;
     }
 }
 
 
-// class Solution {
-//     public boolean allZero(int[] counter) {
-//         for (int ele : counter) {
-//             if (ele != 0) {
-//                 return false;
-//             }
-//         }
-//         return true;
-//     }
-
-//     public int search(String pat, String txt) {
-//         int k = pat.length();
-//         int[] counter = new int[26];
-//         for (char ch : pat.toCharArray()) {
-//             counter[ch - 'a']++;
-//         }
-//         int i = 0, j = 0;
-//         int n = txt.length();
-//         int result = 0;
-//         while (j < n) {
-//             counter[txt.charAt(j) - 'a']--;
-            
-//             if (j - i + 1 == k) {
-//                 if (allZero(counter)) {
-//                     result++;
-//                 }
-//                 counter[txt.charAt(i) - 'a']++;
-//                 i++;
-//             }
-//             j++;
-//         }
-//         return result;
-//     }
-// }
