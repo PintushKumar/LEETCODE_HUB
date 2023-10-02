@@ -33,47 +33,25 @@ class GFG
 
 
 //User function Template for Java
-// class Solution{
-//     static long maximumSumSubarray(int k, ArrayList<Integer> arr,int N){
-//         // code here
-//         long sum =0;
-//         long maxSum = Long.MIN_VALUE;
-//         int i=0 , j=-1;
-//         for(;i<k;i++){
-//             sum+=arr.get(i);
-//         }
-//         i--;
-//         maxSum = Math.max(maxSum , sum);
-//         while(i<N){
-//             if(i-j==k){
-//                 sum-=arr.get(j+1);
-//                 j++;
-//             }
-//             sum+=arr.get(i++);
-//             maxSum = Math.max(maxSum , sum);
-//         }
-//         return maxSum;
-//     }
-// }
-
-class Solution {
-    static long maximumSumSubarray(int k, ArrayList<Integer> arr, int N) {
-        long sum = 0;
+class Solution{
+    static long maximumSumSubarray(int k, ArrayList<Integer> arr,int N){
+        // code here
+        long sum =0;
         long maxSum = Long.MIN_VALUE;
-        int i = 0, j = -1;
-        for (; i < k; i++) {
-            sum += arr.get(i);
+        int i=0 , j=-1;
+        for(;i<k;i++){
+            sum+=arr.get(i);
         }
         i--;
-        maxSum = Math.max(maxSum, sum);
-        while (i < N - 1) {
-            if (i - j == k) {
-                sum -= arr.get(j + 1);
+        maxSum = Math.max(maxSum , sum);
+        while(i<N-1){
+            if(i-j==k){
+                sum-=arr.get(j+1);
                 j++;
             }
             i++;
-            sum += arr.get(i);
-            maxSum = Math.max(maxSum, sum);
+            sum+=arr.get(i);
+            maxSum = Math.max(maxSum , sum);
         }
         return maxSum;
     }
