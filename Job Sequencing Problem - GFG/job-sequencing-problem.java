@@ -42,74 +42,46 @@ class GfG {
 // } Driver Code Ends
 
 
-class Solution
-{
+ /*
+struct Job 
+{ 
+    int id;	 // Job Id 
+    int dead; // Deadline of job 
+    int profit; // Profit if job is over before or on deadline 
+};
+*/
+    class Solution{
     //Function to find the maximum profit and the number of jobs done.
     int[] JobScheduling(Job arr[], int n)
     {
         // Your code here
-        /*
-        Arrays.sort(arr, (a, b) -> b.profit - a.profit); // Sort jobs by profit in descending order.
-        
-        int maxDeadline = 0;
-        for (Job job : arr) {
-            maxDeadline = Math.max(maxDeadline, job.deadline);
-        }
-        
-        int jobCount = 0;
-        int maxProfit = 0;
-        boolean[] slot = new boolean[maxDeadline + 1];
-        
-        for (Job job : arr) {
-            for (int i = job.deadline; i > 0; i--) {
-                if (!slot[i]) {
-                    slot[i] = true;
-                    maxProfit += job.profit;
-                    jobCount++;
-                    break;
-                }
-            }
-        }
-        
-        int res[] = { jobCount, maxProfit };
-        return res;
-        
-        */
-        
-        Arrays.sort(arr , (a , b)->{
-            return b.profit-a.profit;
+        Arrays.sort(arr , (a ,b)->{
+            return b.profit - a.profit;
         });
-        int maxJobDeadLine=Integer.MIN_VALUE;
-        for(Job jobs:arr){
-            maxJobDeadLine =Math.max(maxJobDeadLine , jobs.deadline);
+        
+        int maxDeadLine =Integer.MIN_VALUE;
+        for(Job jobs : arr){
+            maxDeadLine = Math.max(maxDeadLine , jobs.deadline);
         }
-        int jobCount=0;
-        int keepTrackOfJobCompleted[] = new int [maxJobDeadLine+1];
-        Arrays.fill(keepTrackOfJobCompleted , -1);
-        int maxProfit = 0;
-        for(Job jobs: arr){
+        
+        int slot[] = new int [maxDeadLine+1];
+        Arrays.fill(slot , -1);
+        
+        int maxProfit =0;
+        int jobCount = 0;
+        
+        for(Job jobs : arr){
             int deadLine = jobs.deadline;
-            for(int i=deadLine;i>0;i--){
-                if(keepTrackOfJobCompleted[i]==-1){
-                    keepTrackOfJobCompleted[i]=i;
-                    maxProfit += jobs.profit;
+            for(int i =deadLine;i>0;i--){
+                if(slot[i]==-1){
+                    slot[i]=i;
                     jobCount++;
+                    maxProfit += jobs.profit;
                     break;
                 }
             }
         }
-        int res[] ={ jobCount , maxProfit};
+        int res[]={jobCount , maxProfit};
         return res;
     }
 }
-
-/*
-class Job {
-    int id, profit, deadline;
-    Job(int x, int y, int z){
-        this.id = x;
-        this.deadline = y;
-        this.profit = z; 
-    }
-}
-*/
