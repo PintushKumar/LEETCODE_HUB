@@ -54,31 +54,46 @@ class DriverClass {
 
 class Solution {
     static int[] bellman_ford(int n, ArrayList<ArrayList<Integer>> edges, int S) {
-        // Write your code here
-        int dist[] = new int [n];
-        Arrays.fill(dist , 100000000);
-        dist[S]=0;
-        for(int i=1;i<=n-1;i++){
-            for(ArrayList<Integer> edge : edges){
-                int u = edge.get(0);
-                int v = edge.get(1);
-                int wt = edge.get(2);
-                if(dist[u]!=100000000 && dist[u]+wt<dist[v]){
-                    dist[v] = dist[u]+wt;
+        // Create an array to store the shortest distances from the source to all vertices.
+        int dist[] = new int[n];
+        
+        // Initialize the distance array with a large value (10^8) to represent infinity.
+        Arrays.fill(dist, 100000000);
+        
+        // The distance from the source to itself is always 0.
+        dist[S] = 0;
+        
+        // Perform n-1 iterations for relaxation (finding shorter paths).
+        for(int i = 1; i <= n-1; i++) {
+            // Iterate through all edges in the graph.
+            for(ArrayList<Integer> edge : edges) {
+                int u = edge.get(0);  // Starting vertex of the edge.
+                int v = edge.get(1);  // Ending vertex of the edge.
+                int wt = edge.get(2); // Weight (distance) of the edge.
+
+                // If dist[u] is not infinity (i.e., a path to u exists) and
+                // the total distance from S to v through u is shorter than
+                // the current distance to v, update dist[v].
+                if (dist[u] != 100000000 && dist[u] + wt < dist[v]) {
+                    dist[v] = dist[u] + wt;
                 }
             }
         }
         
-        for(ArrayList<Integer> edge : edges){
+        // Check for negative cycles by iterating through the edges again.
+        for(ArrayList<Integer> edge : edges) {
             int u = edge.get(0);
             int v = edge.get(1);
             int wt = edge.get(2);
-            if(dist[u]!=100000000 && dist[u]+wt<dist[v]){
-                int arr[]={-1};
+            
+            // If a shorter path is still found in this phase, it means there is a negative cycle.
+            if (dist[u] != 100000000 && dist[u] + wt < dist[v]) {
+                int arr[] = {-1}; // Return an array containing -1 to indicate the presence of a negative cycle.
                 return arr;
             }
         }
         
+        // Return the array of shortest distances from the source to all vertices.
         return dist;
     }
 }
