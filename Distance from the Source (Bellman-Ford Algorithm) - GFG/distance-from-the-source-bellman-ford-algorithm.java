@@ -87,7 +87,7 @@ class Solution {
             int wt = edge.get(2);
             
             // If a shorter path is still found in this phase, it means there is a negative cycle.
-            if (dist[u] != 100000000 && dist[u] + wt < dist[v]) {
+            if (dist[u] + wt < dist[v]) {
                 int arr[] = {-1}; // Return an array containing -1 to indicate the presence of a negative cycle.
                 return arr;
             }
