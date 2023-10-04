@@ -35,31 +35,26 @@ class Solution
     ArrayList<Integer> countDistinct(int arr[], int n, int k)
     {
      
-        
-        ArrayList<Integer > ans = new ArrayList<>();
-        HashMap<Integer , Integer >  map = new HashMap<>();
-        int i=0 , j=0;
-        while(i<k){
-            map.put(arr[i] , map.getOrDefault(arr[i] , 0)+1);
-            i++;
-        }
-        ans.add(map.size());
-        while(i<n){
-            // acquire
-            map.put(arr[i] , map.getOrDefault(arr[i] , 0)+1);
-            // release
-            int freq = map.get(arr[j]);
-            if(freq ==1){
-                map.remove(arr[j]);
-            }else{
-                map.put(arr[j] , freq-1);
-            }
-            j++;
-            // work
-            ans.add(map.size());
-            i++;
-        }
-        return ans;
+
+
+
+      int i=0 , j =0;
+      ArrayList<Integer> res = new ArrayList<>();
+      HashMap<Integer ,Integer> map = new HashMap<>();
+      while(i<n){
+          map.put(arr[i] , map.getOrDefault(arr[i] , 0)+1);
+          if(i-j+1==k){
+              res.add(map.size());
+              if(map.get(arr[j])==1){
+                  map.remove(arr[j]);
+              }else{
+                  map.put(arr[j] ,map.getOrDefault(arr[j] , 0)-1);
+              }
+              j++;
+          }
+          i++;
+      }
+      return res;
     }
 }
 
