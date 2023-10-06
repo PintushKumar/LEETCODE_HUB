@@ -32,31 +32,25 @@ class GFG {
 //User function Template for Java
 
 class Solution {
-    // Depth-First Search (DFS) function to explore connected cities in a province.
-    public static void dfs(ArrayList<ArrayList<Integer>> adjacencyMatrix, int n, int node, boolean[] visited) {
-        visited[node] = true; // Mark the current city as visited.
-
-        // Iterate through all cities to check for connections.
-        for (int i = 0; i < n; i++) {
-            if (!visited[i] && adjacencyMatrix.get(node).get(i) == 1) {
-                dfs(adjacencyMatrix, n, i, visited); // Recursively visit connected city.
+    public static void dfs(ArrayList<ArrayList<Integer>> adj , int currNode , boolean visited [] , int n ){
+        visited[currNode]=true; // mark visited
+        for(int i=0;i<n;i++){
+            if(!visited[i] && adj.get(i).get(currNode)==1){
+                dfs(adj , i , visited , n);
             }
         }
     }
-
-    // Function to find the number of provinces in the given graph.
-    static int numProvinces(ArrayList<ArrayList<Integer>> adjacencyMatrix, int V) {
-        int componentCount = 0; // Initialize the count of provinces.
-        boolean visited[] = new boolean[V]; // Create an array to track visited cities.
-
-        // Iterate through all cities.
-        for (int i = 0; i < V; i++) {
-            if (!visited[i]) {
-                dfs(adjacencyMatrix, V, i, visited); // Explore connected cities in the province.
-                componentCount++; // Increment the province count for each unvisited city.
+    static int numProvinces(ArrayList<ArrayList<Integer>> adj, int V) {
+        // code here
+        boolean visited[] = new boolean[V+1]; // keep track of visited or not 
+        int count =0; // number of provinces
+        // iterate each node of the graph
+        for(int i=0;i<V;i++){
+            if(!visited[i]){
+                count++;
+                dfs(adj , i , visited , V);
             }
         }
-
-        return componentCount; // Return the total number of provinces.
+        return count;
     }
-}
+};
