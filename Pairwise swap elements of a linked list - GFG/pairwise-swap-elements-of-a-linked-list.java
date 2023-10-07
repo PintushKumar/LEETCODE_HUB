@@ -89,27 +89,27 @@ class Node
 
 class Solution {
     // Function to pairwise swap elements of a linked list.
-    // It should returns head of the modified list
-    public Node pairwiseSwap(Node head)
-    {
-        // code here
+    // It should return the head of the modified list.
+    public Node pairwiseSwap(Node head) {
+        // Create a dummy node to simplify handling edge cases and as the new head.
         Node dummy = new Node(-1);
-        dummy.next = head;
+        dummy.next = head;  // Initialize the dummy node's next to the original head.
         
-        Node point = dummy;
+        Node point = dummy;  // Initialize a pointer to the dummy node.
         
-        while(point.next != null && point.next.next != null){
-            Node swap1 = point.next;
-            Node swap2 = point.next.next;
+        // While there are at least two more nodes to swap.
+        while (point.next != null && point.next.next != null) {
+            Node swap1 = point.next;  // First node to swap.
+            Node swap2 = point.next.next;  // Second node to swap.
             
+            // Swap the nodes by adjusting their next pointers.
             swap1.next = swap2.next;
             swap2.next = swap1;
             
-            point.next = swap2;
-            point = swap1;
-            
+            point.next = swap2;  // Update the previous node's next pointer to the new swapped node.
+            point = swap1;  // Move the pointer to the last swapped node.
         }
         
-        return dummy.next;
+        return dummy.next;  // Return the head of the modified list.
     }
 }
