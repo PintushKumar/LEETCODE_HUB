@@ -49,23 +49,33 @@
 
 class Solution {
     public String frequencySort(String s) {
-        Map<Character, Integer> map = new HashMap<Character, Integer>();
-		for (int i = 0; i < s.length(); i++) {
-			map.put(s.charAt(i), map.getOrDefault(s.charAt(i), 0) + 1);
-		}
+        // Step 1: Count the frequency of each character in the string
+        Map<Character, Integer> charFrequency = new HashMap<>();
+        for (char c : s.toCharArray()) {
+            charFrequency.put(c, charFrequency.getOrDefault(c, 0) + 1);
+        }
 
-		PriorityQueue<Map.Entry<Character, Integer>> pq = new PriorityQueue<>((a, b) -> (b.getValue() - a.getValue()));
+        // Step 2: Create a priority queue to sort characters by frequency (in descending order)
+        PriorityQueue<Character> pq = new PriorityQueue<>((a, b) -> charFrequency.get(b) - charFrequency.get(a));
 
-		pq.addAll(map.entrySet());
-        
-		StringBuilder ans = new StringBuilder();
-		while (!pq.isEmpty()) {
-			Map.Entry<Character, Integer> head = pq.poll();
-			int freq = head.getValue();
-			while (freq-- > 0) {
-				ans.append(head.getKey());
-			}
-		}
-		return ans.toString();
+        // Step 3: Add all unique characters to the priority queue
+        for (char c : s.toCharArray()) {
+            if (!pq.contains(c)) {
+                pq.offer(c);
+            }
+        }
+
+        // Step 4: Build the sorted string by appending characters based on their frequency
+        StringBuilder sortedString = new StringBuilder();
+        while (!pq.isEmpty()) {
+            char c = pq.poll();
+            int frequency = charFrequency.get(c);
+            for (int i = 0; i < frequency; i++) {
+                sortedString.append(c);
+            }
+        }
+
+        // Step 5: Return the sorted string
+        return sortedString.toString();
     }
 }
