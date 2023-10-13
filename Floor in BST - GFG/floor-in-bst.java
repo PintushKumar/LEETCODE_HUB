@@ -62,23 +62,17 @@ class GFG {
 
 class Solution {
     public static int floor(Node root, int x) {
-        // Code here
-        if(root == null){
-            return -1;
-        }
-        Node temp = root;
-        int ans =-1;
-        while(temp != null){
-            if(temp.data == x){
-                return temp.data;
-            }
-            if(temp.data <x){
-                ans = temp.data;
-                temp = temp.right;
-            }else{
-                temp = temp.left;
+        int floor = -1; // Initialize floor as -1 for the case where x is smaller than the smallest node in the BST.
+        while (root != null) {
+            if (x == root.data) {
+                return root.data; // If x is equal to a node's value, return that value as the floor.
+            } else if (x < root.data) {
+                root = root.left;
+            } else {
+                floor = root.data; // Update floor when x is greater than the current node's value.
+                root = root.right;
             }
         }
-        return ans;
+        return floor;
     }
 }
