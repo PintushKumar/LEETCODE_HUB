@@ -159,63 +159,33 @@ class BinarySearchTree
     }
 }*/
 
-class LNode{
-    int data;
-    LNode next;
-    LNode(int data){
-        this.data = data;
-        next = null;
-    }
-}
 class GfG
 {
-    LNode tempHead = new LNode(0);
-    void inOrder(Node root){
+    Node makeBalanceBST(ArrayList<Integer> arr , int st , int n ){
+        if(st >n){
+            return null;
+        }
+        int mid = (st+n)/2;
+        Node root = new Node (arr.get(mid));
+        
+        root.left = makeBalanceBST(arr , st, mid-1);
+        root.right = makeBalanceBST(arr , mid+1 , n);
+        return root;
+    }
+    void inOrder(Node root , ArrayList<Integer> arr){
         if(root == null){
             return;
         }
-        inOrder(root.left);
-        LNode temp = new LNode(root.data);
-        tempHead.next = temp;
-        tempHead = tempHead.next;
-        inOrder(root.right);
-    }
-    
-     public Node sortedListToBST(LNode head)
-    {
-        //code here
-        if(head == null){
-            return null;
-        }
-        
-        if(head.next == null){
-            return new Node(head.data);
-        }
-        
-        LNode slow = head;
-        LNode fast = head;
-        LNode prev_slow = null;
-        
-        while(fast != null && fast.next!= null){
-            prev_slow = slow;
-            slow = slow.next;
-            fast = fast.next.next;
-        }
-        
-        Node root = new Node(slow.data);
-        
-        prev_slow.next = null;
-        
-        root.left = sortedListToBST(head);
-        root.right = sortedListToBST(slow.next);
-        
-        return root;
+        inOrder(root.left , arr);
+        arr.add(root.data);
+        inOrder(root.right , arr);
     }
     Node buildBalancedTree(Node root) 
     {
         //Add your code here.
-        LNode orgHead = tempHead;
-        inOrder(root);
-        return sortedListToBST(orgHead.next);
+        
+        ArrayList<Integer> arr = new ArrayList<>();
+        inOrder(root , arr);
+        return makeBalanceBST(arr , 0 , arr.size()-1);
     }
 }
