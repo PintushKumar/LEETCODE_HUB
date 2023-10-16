@@ -48,45 +48,51 @@ class Get_Min_From_Stack
 
 class GfG
 {
-    int minEle;
-    Stack<Integer> st , minSt;
-    
+    int minEle; // Variable to store the minimum element
+    Stack<Integer> st, minSt; // Two stacks: one for elements, and another for minimum elements.
+
     // Constructor    
     GfG()
-	{
-        st = new Stack<>();
-        minSt = new Stack<>();
-	}
-	
-    // Returns the minimum element from the stack
-    int getMin() {
-        if (minSt.isEmpty()) {
-            return -1; // Stack is empty, return -1 or throw an exception.
-        }
-        return minSt.peek();
+    {
+        st = new Stack<>(); // Initialize the element stack
+        minSt = new Stack<>(); // Initialize the minimum element stack
     }
 
-    // Removes and returns the top element from the stack
-    int pop() {
-        if (st.isEmpty()) {
-            return -1; // Stack is empty, return -1 or throw an exception.
+    /* Returns the minimum element from the stack */
+    int getMin()
+    {
+        // Your code here
+        if (minSt.size() == 0) {
+            return -1; // If the minimum element stack is empty, return -1.
         }
-
-        int popped = st.pop();
-        if (popped == minSt.peek()) {
-            minSt.pop();
-        }
-        return popped;
+        return minSt.peek(); // Return the top element of the minimum element stack.
     }
 
-    // Pushes a new element onto the stack
-    void push(int x) {
-        st.push(x);
-        if (minSt.isEmpty()) {
-            minSt.push(x);
-        }else if(minSt.size()>0 && x <= minSt.peek()){
-            minSt.push(x);
+    /* Returns the popped element from the stack */
+    int pop()
+    {
+        // Your code here
+        if (st.size() == 0) {
+            return -1; // If the element stack is empty, return -1.
         }
+        int stpeek = st.peek(); // Get the top element of the element stack.
+        if (stpeek == minSt.peek()) {
+            minSt.pop(); // If the top element is the minimum element, pop it from the minimum element stack.
+        }
+        return st.pop(); // Pop and return the top element from the element stack.
     }
+
+    /* Pushes element x into the stack */
+    void push(int x)
+    {
+        // Your code here
+        st.push(x); // Push the element onto the element stack.
+        if (minSt.size() == 0) {
+            minSt.push(x); // If the minimum element stack is empty, push the element onto it.
+        } else if (minSt.size() > 0 && x <= minSt.peek()) {
+            minSt.push(x); // If the element is less than or equal to the current minimum, push it onto the minimum element stack.
+        }
+    }   
 }
+
 
