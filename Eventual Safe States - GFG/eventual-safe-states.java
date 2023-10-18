@@ -41,95 +41,38 @@ class GFG {
 
 // User function Template for Java
 
-// class Solution {
-//     public boolean  dfs(List<List<Integer>> adj , int currNode , boolean visited[]  , boolean dfsVisited[]){
-//         visited[currNode]=true;
-//         dfsVisited[currNode]=true;
-//         for( int nbr : adj.get(currNode)){
-//             if(!visited[nbr]){
-//                 if( dfs(adj , nbr , visited , dfsVisited )){
-//                     return true;
-//                 }
-//             }else if(dfsVisited[nbr]== true){
-//                 return true;
-//             }
-//         }
-//         dfsVisited[currNode]=false;
-//         return false;
-//     }
-//     List<Integer> eventualSafeNodes(int V, List<List<Integer>> adj) {
-//         // Your code here
-//         boolean visited[] = new boolean [V];
-//         boolean dfsVisited[] = new boolean [V];
-//         for(int i=0;i<V;i++){
-//             if(!visited[i]){
-//                 dfs(adj , i , visited , dfsVisited);
-//             }
-//         }
-//         List<Integer> res = new ArrayList<>();
-        
-//         for(int i=0;i<V;i++){
-//             if(dfsVisited[i]==false){
-//                 res.add(i);
-//             }
-//         }
-//         return res;
-//     }
-// }
-
 class Solution {
-
-    List<Integer> eventualSafeNodes(int V, List<List<Integer>> graphs) {
-    
-    
-        List<List<Integer>> adj = new ArrayList<>();
-        for (int i = 0; i < V; i++) {
-            adj.add(new ArrayList<Integer>());
+    boolean isSafe(List<List<Integer>> adj , int currNode , int visited[]){
+        if(visited[currNode]==1){
+            return false;
         }
-
-        for (int u = 0; u < V; u++) {
-            for (int v : graphs.get(u)) {
-                adj.get(v).add(u);
+        if(visited[currNode] ==2 ){
+            return true;
+        }
+        visited[currNode] = 1;
+        for(int nbr : adj.get(currNode)){
+            if(visited[nbr]== 1){
+                return false;
+            }
+            if(visited[nbr]==2){
+                continue;
+            }
+            if(!isSafe(adj , nbr , visited)){
+                return false;
             }
         }
-        
-        int [] inDegree = new int[V];
-        
-        for(int u =0;u<V;u++){
-            for(int v : adj.get(u)){
-                inDegree[v]++;
-            }
-        }
-        
-        Queue<Integer> q = new ArrayDeque<>();
-        
-        for(int i=0;i<V; i++){
-            if(inDegree[i]==0){
-                q.add(i);
-            }
-        }
-        
-        boolean safe[] = new boolean[V];
-        
-        while(q.size()>0){
-            int currNode = q.remove();
-            safe[currNode] = true;
-            for(int v: adj.get(currNode)){
-                inDegree[v]--;
-                if(inDegree[v]==0){
-                    q.add(v);
-                }
-            }
-        }
-        
-        List<Integer> resSafe = new ArrayList<>();
-        
+        visited[currNode] = 2;
+        return true;
+    }
+    List<Integer> eventualSafeNodes(int V, List<List<Integer>> adj) {
+        // Your code here
+        List<Integer> res = new ArrayList<>();
+        int visited [] = new int [V];
         for(int i=0;i<V;i++){
-            if(safe[i]==true){
-                resSafe.add(i);
+            if(isSafe(adj , i , visited)){
+                res.add(i);
             }
         }
-        
-        return resSafe;
+        return res;
     }
 }
