@@ -1,38 +1,61 @@
-public class Solution {
-    public int minimumTime(int n, int[][] relations, int[] time) {
-        Map<Integer, List<Integer>> graph = new HashMap<>();
-        int[] in_degree = new int[n + 1];
-        for (int[] relation : relations) {
-            graph.computeIfAbsent(relation[0], k -> new ArrayList<>()).add(relation[1]);
-            in_degree[relation[1]]++;
+class Solution {
+    public int minimumTime(int numCourses, int[][] prerequisites, int[] courseTimes) {
+        // Create an adjacency list to represent the course prerequisites.
+        List<List<Integer>> courseGraph = new ArrayList<>();
+        for (int i = 0; i < numCourses; i++) {
+            courseGraph.add(new ArrayList<>());
         }
 
-        int[] dist = new int[n + 1];
-        System.arraycopy(time, 0, dist, 1, n);
-        Queue<Integer> q = new LinkedList<>();
-        for (int i = 1; i <= n; i++) {
-            if (in_degree[i] == 0) {
-                q.add(i);
+        // Populate the adjacency list based on the given prerequisites.
+        for (int i = 0; i < prerequisites.length; i++) {
+            int parentCourse = prerequisites[i][0]-1; // Parent course as prerequisites.
+            int childCourse = prerequisites[i][1]-1; // Child course dependent on prerequisites.
+            courseGraph.get(parentCourse).add(childCourse);
+        }
+
+        // Create an array to store the in-degrees of each course.
+        int inDegrees[] = new int[numCourses];
+
+        // Calculate the in-degrees based on the prerequisites.
+        for (int parentCourse = 0; parentCourse < numCourses; parentCourse++) {
+            for (int childCourse : courseGraph.get(parentCourse)) {
+                inDegrees[childCourse]++;
             }
         }
 
-        while (!q.isEmpty()) {
-            int course = q.poll();
-            if (graph.containsKey(course)) {
-                for (int next_course : graph.get(course)) {
-                    dist[next_course] = Math.max(dist[next_course], dist[course] + time[next_course - 1]);
-                    in_degree[next_course]--;
-                    if (in_degree[next_course] == 0) {
-                        q.add(next_course);
-                    }
+        // Use a queue to perform topological sorting.
+        Queue<Integer> queue = new ArrayDeque<>();
+
+        // Create an array to store the maximum time required for each course.
+        int maxTimeRequired[] = new int[numCourses];
+
+        // Initialize the queue with courses that have no prerequisites.
+        for (int course = 0; course < numCourses; course++) {
+            if (inDegrees[course] == 0) {
+                queue.add(course);
+                maxTimeRequired[course] = courseTimes[course];
+            }
+        }
+
+        // Perform topological sorting and calculate the maximum time for each course.
+        while (!queue.isEmpty()) {
+            int currentCourse = queue.poll();
+            for (int dependentCourse : courseGraph.get(currentCourse)) {
+                inDegrees[dependentCourse]--;
+                // Update the maximum time for the current course.
+                maxTimeRequired[dependentCourse] = Math.max(maxTimeRequired[dependentCourse], maxTimeRequired[currentCourse] + courseTimes[dependentCourse]);
+                if (inDegrees[dependentCourse] == 0) {
+                    queue.add(dependentCourse);
                 }
             }
         }
 
-        int maxVal = 0;
-        for (int val : dist) {
-            maxVal = Math.max(maxVal, val);
+        // Find the maximum time among all courses, which represents the minimum time needed.
+        int minTimeRequired = 0;
+        for (int time : maxTimeRequired) {
+            minTimeRequired = Math.max(minTimeRequired, time);
         }
-        return maxVal;
+
+        return minTimeRequired; // Return the minimum time needed to complete all courses.
     }
 }
