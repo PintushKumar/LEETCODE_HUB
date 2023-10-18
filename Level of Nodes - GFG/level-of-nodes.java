@@ -46,8 +46,8 @@ class Solution {
         visited[0] = true;
 
         while (!q.isEmpty()) {
-            int levelSize = q.size(); // Track the size of the current level.
-            for (int i = 0; i < levelSize; i++) {
+            int size = q.size();
+            while(size-->0) {
                 int currNode = q.poll();
                 if (currNode == X) {
                     return levels;
