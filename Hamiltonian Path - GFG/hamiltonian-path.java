@@ -35,14 +35,14 @@ class GFG{
 
 //User function Template for Java
 class Solution {
-    boolean dfs(ArrayList<ArrayList<Integer>> adj, int currNode, boolean[] visited, int countNode, int N, int prevNode) {
+    boolean dfs(ArrayList<ArrayList<Integer>> adj, int currNode, boolean[] visited, int countNode, int N) {
         if (countNode == N) {
             return true;
         }
         visited[currNode] = true;
         for (int nbr : adj.get(currNode)) {
-            if (!visited[nbr] && nbr != prevNode) {
-                if (dfs(adj, nbr, visited, countNode + 1, N, currNode)) {
+            if (!visited[nbr] ) {
+                if (dfs(adj, nbr, visited, countNode + 1, N)) {
                     return true;
                 }
             }
@@ -67,7 +67,7 @@ class Solution {
         boolean visited[] = new boolean[N + 1];
         for (int i = 1; i <= N; i++) {
             if (!visited[i]) {
-                if (dfs(adj, i, visited, 1, N, -1)) {  // Pass -1 as the previous node for the first node.
+                if (dfs(adj, i, visited, 1, N)) {  // Pass -1 as the previous node for the first node.
                     return true;
                 }
             }
