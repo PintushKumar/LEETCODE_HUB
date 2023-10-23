@@ -77,6 +77,29 @@ class GFG
 //     }
 // }
 
+// class Solution {
+//     // Function to find the maximum money the thief can get.
+//     public int FindMaxSum(int arr[], int n) {
+//         if (n == 0) {
+//             return 0;
+//         }
+//         if (n == 1) {
+//             return arr[0];
+//         }
+        
+//         int dp[] = new int[n];
+//         dp[0] = arr[0];
+//         dp[1] = Math.max(arr[0], arr[1]);
+        
+//         for (int i = 2; i < n; i++) {
+//             // Calculate the maximum by either skipping the current house or stealing from it.
+//             dp[i] = Math.max(dp[i - 1], arr[i] + dp[i - 2]);
+//         }
+        
+//         return dp[n - 1]; // Return the maximum money that can be obtained.
+//     }
+// }
+
 class Solution {
     // Function to find the maximum money the thief can get.
     public int FindMaxSum(int arr[], int n) {
@@ -87,18 +110,21 @@ class Solution {
             return arr[0];
         }
         
-        int dp[] = new int[n];
-        dp[0] = arr[0];
-        dp[1] = Math.max(arr[0], arr[1]);
+        int prevMax = arr[0];
+        int currMax = Math.max(arr[0], arr[1]);
         
         for (int i = 2; i < n; i++) {
-            // Calculate the maximum by either skipping the current house or stealing from it.
-            dp[i] = Math.max(dp[i - 1], arr[i] + dp[i - 2]);
+           int temp = currMax ;
+           currMax = Math.max(currMax , arr[i]+prevMax);
+           prevMax = temp;
         }
         
-        return dp[n - 1]; // Return the maximum money that can be obtained.
+        return currMax; // Return the maximum money that can be obtained.
     }
 }
+
+
+
 
 
 
