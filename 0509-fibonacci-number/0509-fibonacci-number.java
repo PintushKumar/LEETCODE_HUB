@@ -1,57 +1,76 @@
-// Simple solution Using Recursion 
+// Approach 1: Recursive Approach
 
 // class Solution {
 //     public int fib(int n) {
+//         // Base cases: F(0) = 0, F(1) = 1
 //         if(n==0 || n==1){
 //             return n;
 //         }
-//         return fib(n-1)+fib(n-2);
+//         // Recursive call to calculate F(n) using F(n-1) and F(n-2)
+//         return fib(n-1) + fib(n-2);
 //     }
 // }
 
-/// DP Approach 
+
+// // Approach 2: Dynamic Programming with Memoization
 
 // class Solution {
-//     public int helper(int n , int dp[]){
-//         if(n==0 || n==1 ){
+//     public int helper(int n, int dp[]) {
+//         // Base cases: F(0) = 0, F(1) = 1
+//         if(n==0 || n==1){
 //             return n;
 //         }
-//         if(dp[n]!=-1){
+//         // Check if the value is already calculated and stored in dp
+//         if(dp[n] != -1) {
 //             return dp[n];
 //         }
-        
-//         dp[n] = helper(n-1 , dp) + helper(n-2 , dp);
+//         // Calculate F(n) using memoization
+//         dp[n] = helper(n-1, dp) + helper(n-2, dp);
 //         return dp[n];
 //     }
 //     public int fib(int n) {
-//         int dp[] = new int [31];
-//         Arrays.fill(dp , -1);
-//         return helper(n , dp);
+//         int dp[] = new int[31];
+//         // Initialize dp with -1 to indicate values not yet calculated
+//         Arrays.fill(dp, -1);
+//         // Start calculating F(n)
+//         return helper(n, dp);
 //     }
 // }
 
+// // Approach 3: Dynamic Programming (Tabulation)
+
 // class Solution {
 //     public int fib(int n) {
-//         if(n==0 || n==1 ){
+//         // Base cases: F(0) = 0, F(1) = 1
+//         if(n==0 || n==1){
 //             return n;
 //         }
-//         int dp[] = new int [31];
-//         dp[0]=0;
-//         dp[1]=1;
-//         for(int i=2;i<=n;i++){
-//             dp[i] = dp[i-1]+dp[i-2];
+//         // Create an array to store Fibonacci numbers
+//         int dp[] = new int[31];
+//         // Initialize the base cases
+//         dp[0] = 0;
+//         dp[1] = 1;
+//         // Calculate F(2) to F(n) iteratively
+//         for(int i=2; i<=n; i++){
+//             dp[i] = dp[i-1] + dp[i-2];
 //         }
 //         return dp[n];
 //     }
 // }
+
+
+// Approach 4: Optimized Dynamic Programming (Tabulation)
 
 class Solution {
     public int fib(int n) {
-        if(n==0 || n==1 ){
+        // Base cases: F(0) = 0, F(1) = 1
+        if(n==0 || n==1){
             return n;
         }
-        int first = 0 , second = 1 , third = 0;
-        for(int i=2;i<=n;i++){
+        // Initialize variables to store three consecutive Fibonacci numbers
+        int first = 0, second = 1, third = 0;
+        for(int i=2; i<=n; i++){
+            // Calculate F(i) using F(i-1) and F(i-2)
             third = first + second;
             first = second;
             second = third;
