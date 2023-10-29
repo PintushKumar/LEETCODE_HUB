@@ -19,21 +19,12 @@ class Node {
 
 class Solution {
     public int maxDepth(Node root) {
-        if(root == null ){
+        if(root == null){
             return 0;
         }
-        Queue<Node> q= new ArrayDeque<>();
-        q.add(root);
-        int height = 0;
-        while(q.size()>0){
-            int size = q.size();
-            while(size-->0){
-                Node curr = q.remove();
-                for(Node next : curr.children){
-                    q.add(next);
-                }
-            }
-            height++;
+        int height =1;
+        for(Node next : root.children){
+            height = Math.max(height , 1+ maxDepth(next));
         }
         return height;
     }
