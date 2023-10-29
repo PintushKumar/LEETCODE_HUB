@@ -104,34 +104,46 @@ class Node
 }
 */
 
-class Solution
-{
-    //Function to remove a loop in the linked list.
-    public static void removeLoop(Node head){
-        Node slow=head,fast=head;
-        while(fast!=null && fast.next!=null){
-            slow=slow.next;
-            fast=fast.next.next;
-            if(slow==fast){
-                break;
+class Solution {
+    // Function to remove a loop in the linked list.
+    public static void removeLoop(Node head) {
+        // Initialize two pointers, slow and fast, both starting at the head.
+        Node slow = head, fast = head;
+
+        // Detect the loop using Floyd's cycle detection algorithm
+        while (fast != null && fast.next != null) {
+            slow = slow.next;        // Move the slow pointer by one step
+            fast = fast.next.next;   // Move the fast pointer by two steps
+            if (slow == fast) {
+                break; // If slow and fast pointers meet, a loop is detected, exit the loop.
             }
         }
-        if(slow!=fast){
-            return;
+
+        // If there is no loop, return
+        if (slow != fast) {
+            return; // No loop found, return without making any changes.
         }
-        Node check=fast;
-        while(head==fast){
-            if(check.next==head){
-                check.next=null;
+
+        // Create a check node to traverse from the node where the loop is detected.
+        Node check = fast;
+
+        // Find the start of the loop by moving check until it reaches the last node of the loop.
+        while (head == fast) {
+            if (check.next == head) {
+                check.next = null; // Remove the link from the last node to break the loop.
                 return;
             }
-            check=check.next;
+            check = check.next;
         }
-        slow=head;
-        while(slow.next!=fast.next){
-            slow=slow.next;
-            fast=fast.next;
+
+        // Reset slow to the head and move it and fast until they meet at the start of the loop.
+        slow = head;
+        while (slow.next != fast.next) {
+            slow = slow.next;
+            fast = fast.next;
         }
-        fast.next=null;
+
+        // Remove the link from the last node of the loop to break the loop.
+        fast.next = null;
     }
 }
